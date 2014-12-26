@@ -4,6 +4,8 @@ Tick = function(beat, waitSeconds) {
 
     this.beat = beat;
     this.waitSeconds = waitSeconds;
+
+    this.onStarted = this.onStarted.bind(this); // ES6 fat arrow
 };
 
 Tick.prototype = {
@@ -49,5 +51,19 @@ Tick.prototype = {
         this.tones.forEach(function(each) {
             each.startAtTime(time);
         })
+    },
+    get isEnabledOnStarted() {
+        return this._isEnabledOnStarted = this._isEnabledOnStarted || false;
+    },
+    get silentOnStartTone() {
+      return new StartTriggerSilentTone(this.onStarted);
+    },
+    enableOnStarted: function() {
+        if (this.isEnabledOnStarted) {return};
+        this.tones.push(this.silentOnStartTone);
+        this._isEnabledOnStarted = true;
+    },
+    onStarted: function() {
+        // must first be enabled via this.enableOnStarted()
     }
 };
