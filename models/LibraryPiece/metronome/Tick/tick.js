@@ -1,8 +1,5 @@
-Tick = function(beat, waitSeconds) {
-    check(beat, Beat);
+Tick = function(waitSeconds) {
     check(waitSeconds, Matcher.nonNegativeNumber);
-
-    this.beat = beat;
     this.waitSeconds = waitSeconds;
 
     this.onStarted = this.onStarted.bind(this); // ES6 fat arrow
@@ -37,9 +34,9 @@ Tick.prototype = {
         return true;
     },
     get tones() {
-        return this._tones = this._tones || this.makeTones();
+        return this._tones = this._tones || this._makeTones();
     },
-    makeTones: function() {
+    _makeTones: function() {
         var tones = [];
         if (this.isBackground) {tones.push(new BackgroundTone())};
         if (this.isClassic) {tones.push(new ClassicTone())};
@@ -55,12 +52,12 @@ Tick.prototype = {
     get isEnabledOnStarted() {
         return this._isEnabledOnStarted = this._isEnabledOnStarted || false;
     },
-    get silentOnStartTone() {
-      return new StartTriggerSilentTone(this.onStarted);
+    get onStartSilentTone() {
+      return new OnStartSilentTone(this.onStarted);
     },
     enableOnStarted: function() {
         if (this.isEnabledOnStarted) {return};
-        this.tones.push(this.silentOnStartTone);
+        this.tones.push(this.onStartSilentTone);
         this._isEnabledOnStarted = true;
     },
     onStarted: function() {

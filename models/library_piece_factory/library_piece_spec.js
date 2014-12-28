@@ -18,14 +18,14 @@ LibraryPieceFactorySpec = {
         Intent.subtypeMustImplement();
     },
     get piece() {
-        return this._piece = this._piece || this.make_piece();
+        return this._piece = this._piece || this._makePiece();
     },
     get factoryPiece() {
         var libraryPiece = new LibraryPiece(this.myName, this.composer, this.catalogReference);
         libraryPiece.addMeasures(this.measures);
         return libraryPiece;
     },
-    make_piece: function() {
+    _makePiece: function() {
         var piece = this.factoryPiece;
         console.log("make_piece piece", piece);
         Meteor.call('libraryPieceInsert', piece, function(error, result){

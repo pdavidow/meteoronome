@@ -32,27 +32,32 @@ Beat.prototype = {
         check(measure, Measure);
         this._measure = measure;
     },
-    get metronome() {
-        return this.measure.metronome;
+    get metronomeSetting() {
+        return this.measure.metronomeSetting;
     },
     get ticks() {
-        return this._ticks = this._ticks || this.metronome.ticksForBeat(this);
+        return this._ticks = this._ticks || this.metronomeSetting.ticksForBeat(this);
     },
     get tick_amount() {
         return this._tick_amount = this._tick_amount || Mathjs_local.lcm(this.rightHand, this.leftHand);
     },
     ticksForWaitSeconds: function(waitSeconds) {
-        var that = this;
-        var ticks = _.range(1, this.tick_amount).map(function(each, index) {
-            var type = (index == 0 ? BeatFirstTick : Tick);
-            return new type(that, waitSeconds); // ES6 fat arrow
-            /*
-            if (index == 0) {return new BeatFirstTick(that, waitSeconds)};
-            return new Tick(that, waitSeconds);
-            */
-        });
+        var ticks = this._rawTicksForWaitSeconds(waitSeconds);
         this.embellishTicks(ticks);
         return ticks;
+    },
+    _rawTicksForWaitSeconds: function(waitSeconds) {
+        var first = this._firstTickForWaitSeconds(waitSeconds);
+        var remaining = this._remainingTicksForWaitSeconds(waitSeconds);
+        return [first].concat(remaining);
+    },
+    _firstTickForWaitSeconds: function(waitSeconds) {
+        return new BeatFirstTick(this, waitSeconds);
+    },
+    _remainingTicksForWaitSeconds: function(waitSeconds) {
+        return _.range(2, this.tick_amount).map(function(each) {
+            return new Tick(waitSeconds);
+        });
     },
     embellishTicks: function(ticks) {
         this.rightHandIndicies.forEach(function(each) {
@@ -72,7 +77,7 @@ Beat.prototype = {
         return this._leftHandIndicies = this._leftHandIndicies || this.spacedIndiciesForAmount(this.leftHand);
     },
     get classicIndicies() {
-        return this._classicIndicies = this._classicIndicies || this.spacedIndiciesForAmount(this.metronome.classicTicksPerBeat);
+        return this._classicIndicies = this._classicIndicies || this.spacedIndiciesForAmount(this.metronomeSetting.classicTicksPerBeat);
     },
     spacedIndiciesForAmount: function(amount) {
         var interval = this.tick_amount / amount;

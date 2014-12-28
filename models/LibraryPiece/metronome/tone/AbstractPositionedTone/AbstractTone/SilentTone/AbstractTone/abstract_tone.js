@@ -3,7 +3,6 @@ AbstractTone = function() {
 };
 
 AbstractTone.prototype = {
-
     startAtTime: function (time) {
         this.source = this.startBufferAtTime(time);
         this.source.onended = this.onEnded;

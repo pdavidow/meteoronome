@@ -1,5 +1,6 @@
 BeatFirstTick = function(beat, waitSeconds) {
-    Tick.call(this, beat, waitSeconds);
+    Tick.call(this, waitSeconds);
+    this.beat = beat;
 
     this.enableOnStarted();
 };

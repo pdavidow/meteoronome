@@ -50,23 +50,15 @@ LibraryPiece.prototype = {
         });
     },
     get metronomeSetting() {
-        return this._metronomeSetting = this._metronomeSetting || new MetronomeSetting(15,1);
-    },
-    get metronome() {
-        return this._metronome = this._metronome || new Metronome(this.metronomeSetting);
+        return this._metronomeSetting = this._metronomeSetting || new MetronomeSetting(this, 15, 1);
     },
     get beats() {
         return _.flatten(this.measures.map(function(each) {
             return each.beats;
         }));
     },
-    get ticks() {
-        return _.flatten(this.beats.map(function(each) {
-            return each.ticks;
-        }));
-    },
     startMetronome: function() {
-        this.metronome.startOnTicks(this.ticks);
+        this.metronomeSetting.startMetronome();
     }
 
     /*,

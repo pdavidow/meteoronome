@@ -1,25 +1,13 @@
 Metronome = function(setting) {
     check(setting, MetronomeSetting);
     this.setting = setting;
+
+    this.onEnded = this.onEnded.bind(this); // ES6 fat arrow
 };
 
 Metronome.prototype = {
-    get classicTicksPerMinute() {
-        return this._classicTicksPerMinute = this._classicTicksPerMinute || this.setting.classicTicksPerMinute;
-    },
-    get classicTicksPerBeat() {
-        return this._classicTicksPerBeat = this._classicTicksPerBeat || this.setting.classicTicksPerBeat;
-    },
-    get ticksPerSecond() {
-        return this._ticksPerSecond = this._ticksPerSecond || this.classicTicksPerMinute / 60;
-    },
-    ticksForBeat: function(beat) {
-        check(beat, Beat);
-        var waitSeconds = this.classicTicksPerBeat / (beat.tick_amount * this.ticksPerSecond);
-        return beat.ticksForWaitSeconds(waitSeconds);
-    },
-    startOnTicks: function(ticks) {
-        this.ticks = ticks;
+    startOnBeats: function(beats) {
+        this.beats = beats;
         this.start();
     },
     start: function() {
@@ -39,5 +27,34 @@ Metronome.prototype = {
     startTick: function(tick) {
         tick.startAtTime(this.timeAtStart + this.tickStartTimeOffset);
         this.tickStartTimeOffset += tick.waitSeconds;
+    },
+    get beats() {
+      return this._beats;
+    },
+    set beats(beats) {
+        this._beats = beats;
+        this._resetTicks;
+    },
+    get ticks() {
+        return this._ticks = this._ticks || this._makeTicks();
+    },
+    _resetTicks: function() {
+        this._ticks = null;
+    },
+    _makeTicks: function() {
+        var ticks = this._rawTicks;
+        ticks.push(this.silentEndTick);
+        return ticks;
+    },
+    get _rawTicks() {
+        return _.flatten(this.beats.map(function(each) {
+            return each.ticks;
+        }));
+    },
+    get silentEndTick() {
+        return new NoWaitSilentTick(this.onEnded);
+    },
+    onEnded: function() {
+        console.log("metronome onEnded");
     }
 };

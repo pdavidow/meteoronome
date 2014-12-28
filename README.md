@@ -1,2 +1,2 @@
-Port of Rails MetronomeApp.
+Rewrite of Rails MetronomeApp for Meteor.
 Work in progress...

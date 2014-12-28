@@ -26,8 +26,8 @@ Measure.prototype = {
         check(piece, LibraryPiece);
         this._piece = piece;
     },
-    get metronome() {
-        return this.piece.metronome;
+    get metronomeSetting() {
+        return this.piece.metronomeSetting;
     },
     get beats() {
         return this._beats = this._beats || [];

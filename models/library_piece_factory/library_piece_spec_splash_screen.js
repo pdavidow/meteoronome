@@ -14,7 +14,7 @@ Object.defineProperties(LibraryPieceSpec_SplashScreen, {
         measure.addBeats([
             new Beat(2,3),
             new Beat(4,3),
-            new Beat(8,3)
+            new Beat(7,3)
         ]);
         measures.push(measure);
 
