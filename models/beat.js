@@ -93,7 +93,11 @@ Beat.prototype = {
         return '{' + this.rightHand + ',' + this.leftHand + '}';
     },
     onStarted: function() {
+        this.metronome.currentBeat = this;
         console.log("beat onStarted", this.displayString); ////////////////////////////////////
+    },
+    get metronome() {
+        return this.metronomeSetting.metronome;
     }
 };
 

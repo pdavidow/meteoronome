@@ -49,6 +49,9 @@ LibraryPiece.prototype = {
             that.addMeasure(each); // ES6 fat arrow
         });
     },
+    get metronomeState() {
+      return this.metronomeSetting.metronomeState;
+    },
     get metronomeSetting() {
         return this._metronomeSetting = this._metronomeSetting || new MetronomeSetting(this, 15, 1);
     },

@@ -10,55 +10,12 @@
     <form class="test">
         <input type="submit" value="tick SplashScreen"/>
     </form>
+    <br/>
+    {{> status}}
 </template>
 
-<template name="beat">
-    <header>
-        <h1>Beat</h1>
-    </header>
-    <form class="beat">
-        lh:<input type="number" min="1" step="1" name="rh" placeholder=1 />
-        rh:<input type="number" min="1" step="1" name="lh" placeholder=1 />
-        <input type="submit" value="Submit beat"/>
-    </form>
-</template>
-
-<template name="metronome">
-    <header>
-        {{> loginButtons}}
-        <h1>Metronomic Pieces</h1>
-    </header>
-
-    {{> library_import}}
-
-    <br/><br/>
-    <form class="new-piece">
-        <input type="text" name="name" placeholder="*Name" />
-        <input type="text" name="composer" placeholder="*Composer" />
-        <input type="text" name="catalogReference" placeholder="Catalog Reference" />
-        <input type="submit" value="Submit new piece"/>
-    </form>
-
-    {{#each pieces}}
-        {{> piece}}
-    {{/each}}
-</template>
-
-<template name="library_import">
-    <button class="import">Import:</button>
-    <select  class="library-piece">>
-        {{#each libraryPieces}}
-            {{> library_piece}}
-        {{/each}}
-    </select>
-</template>
-
-<template name="library_piece">
-    <option value={{thisPiece}}>{{displayString}}</option>
-</template>
-
-<template name="piece">
-    <li>
-        <button class="delete">&times;</button><button class="play">PLAY</button>{{displayString}}
-    </li>
+<template name="status">
+    Current Beat: {{currentBeat}}
+    <br/>
+    Metronome On: {{isMetronomeOn}}
 </template>

@@ -6,7 +6,11 @@ Metronome = function(setting) {
 };
 
 Metronome.prototype = {
+    get state() {
+        return this._state = this._state || new MetronomeState(this);
+    },
     startOnBeats: function(beats) {
+        this.state.isMetronomeOn = true;
         this.beats = beats;
         this.start();
     },
@@ -54,7 +58,11 @@ Metronome.prototype = {
     get silentEndTick() {
         return new NoWaitSilentTick(this.onEnded);
     },
+    set currentBeat(beat) {
+        this.state.currentBeat = beat;
+    },
     onEnded: function() {
+        this.state.isMetronomeOn = false;
         console.log("metronome onEnded");
     }
 };
