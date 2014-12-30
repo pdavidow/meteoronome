@@ -7,15 +7,18 @@ MetronomeState.prototype = {
     get _reactiveDict() {
       return this.__reactiveDict = this.__reactiveDict || new ReactiveDict();
     },
-    get isMetronomeOn() {
-        var value = this._reactiveDict.get("isMetronomeOn");
-        if (_.isUndefined(value)) {this._reactiveDict.set("isMetronomeOn", false)};
-        return this._reactiveDict.get("isMetronomeOn");
+    get isStarted() {
+        var value = this._reactiveDict.get("isStarted");
+        if (_.isUndefined(value)) {this._reactiveDict.set("isStarted", false)};
+        return this._reactiveDict.get("isStarted");
     },
-    set isMetronomeOn(boolean) {
+    set isStarted(boolean) {
         check(boolean, Boolean);
-        this._reactiveDict.set("isMetronomeOn", boolean);
-        if (!this._reactiveDict.get("isMetronomeOn")) {this._reactiveDict.set("currentBeat", null)};
+        this._reactiveDict.set("isStarted", boolean);
+        if (!this._reactiveDict.get("isStarted")) {this._reactiveDict.set("currentBeat", null)};
+    },
+    get isStopped() {
+        return !this.isStarted;
     },
     get currentBeat() {
         return this._reactiveDict.get("currentBeat");

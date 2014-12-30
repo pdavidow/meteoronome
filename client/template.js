@@ -4,6 +4,9 @@ if (Meteor.isClient) {
     Template.test.helpers({
         pieceName: function(){
             return testPiece.name;
+        },
+        isMetronomeStopped: function() {
+            return testPiece.metronomeState.isStopped;
         }
     });
     Template.test.events({
@@ -12,14 +15,11 @@ if (Meteor.isClient) {
             testPiece.startMetronome();
         },
         "click #stop": function() {
-            testPiece.metronome.stop();
+            testPiece.stopMetronome();
         }
     });
 
     Template.status.helpers({
-        isMetronomeOn: function() {
-            return testPiece.metronomeState.isMetronomeOn.toString();
-        },
         currentBeat: function() {
             beat = testPiece.metronomeState.currentBeat;
             return beat ? beat.displayString : "---";

@@ -65,6 +65,9 @@ LibraryPiece.prototype = {
     },
     startMetronome: function() {
         this.metronomeSetting.startMetronome();
+    },
+    stopMetronome: function() {
+        this.metronomeSetting.stopMetronome();
     }
 
     /*,

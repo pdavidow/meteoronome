@@ -21,6 +21,9 @@ MetronomeSetting.prototype = {
     startMetronome: function() {
         this.metronome.startOnBeats(this.beatsOfInterest);
     },
+    stopMetronome: function() {
+        this.metronome.stop();
+    },
     get metronome() {
         return this._metronome = this._metronome || new Metronome(this);
     },
