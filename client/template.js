@@ -1,18 +1,30 @@
+var notApplicableString = "---";
+
 if (Meteor.isClient) {
+    Template.test.helpers({
+        pieceName: function(){
+            var piece = Session.get("piece");
+            return piece ? piece.name : notApplicableString;
+        }
+    });
     Template.test.events({
         "submit .test": function(event) {
             event.preventDefault();
-            Session.get("piece").startMetronome();
+            var piece = Session.get("piece");
+            if (piece) {piece.startMetronome()};
         }
     });
 
     Template.status.helpers({
         isMetronomeOn: function() {
-            return Session.get("piece").metronomeState.isMetronomeOn.toString();
+            var piece = Session.get("piece");
+            return piece ? piece.metronomeState.isMetronomeOn.toString() : notApplicableString;
         },
         currentBeat: function() {
-            beat = Session.get("piece").metronomeState.currentBeat;
-            return beat ? beat.displayString : "---";
+            var piece = Session.get("piece");
+            if (!piece) {return notApplicableString};
+            beat = piece.metronomeState.currentBeat;
+            return beat ? beat.displayString : notApplicableString;
         }
     });
 }

@@ -1,7 +1,7 @@
 Library = {
     get specSubtypes() {
         return ([
-            LibraryPieceSpec_SplashScreen,
+            LibraryPieceSpec_Test,
             LibraryPieceSpec_ChopinNocturneEminorOpus72No1Posthumous
         ]);
     },

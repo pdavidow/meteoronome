@@ -1,8 +1,8 @@
-LibraryPieceSpec_SplashScreen = Object.create(LibraryPieceFactorySpec);
+LibraryPieceSpec_Test = Object.create(LibraryPieceFactorySpec);
 
-Object.defineProperties(LibraryPieceSpec_SplashScreen, {
+Object.defineProperties(LibraryPieceSpec_Test, {
     "myName": {get: function () {
-        return "Splash Screen";
+        return "Test";
     }},
     "composer": {get: function () {
         return "PJD";
