@@ -14,6 +14,13 @@ Object.defineProperties(LibraryPieceSpec_Test, {
         measure.addBeats([
             new Beat(2,3),
             new Beat(4,3),
+            new Beat(2,3)
+        ]);
+        measures.push(measure);
+
+        measure = new Measure();
+        measure.addBeats([
+            new Beat(4,3),
             new Beat(7,3)
         ]);
         measures.push(measure);

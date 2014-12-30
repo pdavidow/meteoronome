@@ -20,11 +20,17 @@ MetronomeState.prototype = {
     get isStopped() {
         return !this.isStarted;
     },
-    get currentBeat() {
+    get currentBeat() { // todo: uhoh -- returns clone
         return this._reactiveDict.get("currentBeat");
     },
     set currentBeat(beat) {
         check(beat, Match.OneOf(null, Beat));
         this._reactiveDict.set("currentBeat", beat);
+        this._reactiveDict.set("currentBeat_DisplayLocationDescription", beat.displayLocationDescription);
+    },
+    get currentBeat_DisplayLocationDescription() { // todo: is this best that can be done (taking speed efficiency into account)???
+        var value = this._reactiveDict.get("currentBeat_DisplayLocationDescription");
+        if (_.isUndefined(value)) {this._reactiveDict.set("currentBeat_DisplayLocationDescription", "---")};
+        return this._reactiveDict.get("currentBeat_DisplayLocationDescription");
     }
 }

@@ -42,6 +42,12 @@ Measure.prototype = {
         beats.forEach(function(each) {
             that.addBeat(each); // ES6 fat arrow
         });
+    },
+    get displayIndex() {
+        return this.index + Constants.displayIndexOffset;
+    },
+    get index() {
+        return this.piece.measures.indexOf(this);
     }
     /*,
      displayString: function () {

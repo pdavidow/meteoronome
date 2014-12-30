@@ -21,8 +21,7 @@ if (Meteor.isClient) {
 
     Template.status.helpers({
         currentBeat: function() {
-            beat = testPiece.metronomeState.currentBeat;
-            return beat ? beat.displayString : "---";
+            return testPiece.metronomeState.currentBeat_DisplayLocationDescription;
         }
     });
 }

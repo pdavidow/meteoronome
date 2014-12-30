@@ -37,7 +37,8 @@ Metronome.prototype = {
     },
     set beats(beats) {
         this._beats = beats;
-        this._resetTicks;
+        this._resetTicks();
+        this.recalculateCaches();
     },
     get ticks() {
         return this._ticks = this._ticks || this._makeTicks();
@@ -46,11 +47,11 @@ Metronome.prototype = {
         this._ticks = null;
     },
     _makeTicks: function() {
-        var ticks = this._rawTicks;
+        var ticks = this.requestedTicks;
         ticks.push(this.silentEndTick);
         return ticks;
     },
-    get _rawTicks() {
+    get requestedTicks() {
         return _.flatten(this.beats.map(function(each) {
             return each.ticks;
         }));
@@ -62,16 +63,21 @@ Metronome.prototype = {
         this.state.currentBeat = beat;
     },
     onEnded: function() {
+        this.state.isStarted = false;
         console.log("metronome onEnded");
     },
     stop: function() {
         this.stopTicks();
-        this.state.isStarted = false;
         this.onEnded();
     },
     stopTicks: function() {
         this.ticks.forEach(function(each) {
             each.stop();
         })
+    },
+    recalculateCaches: function() {
+        this.beats.forEach(function(each) {
+            each.recalculateCaches();
+        });
     }
 };

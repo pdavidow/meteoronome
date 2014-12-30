@@ -89,15 +89,37 @@ Beat.prototype = {
         };
         return indicies;
     },
-    get displayString() {
+    get description() {
         return '{' + this.rightHand + ',' + this.leftHand + '}';
+    },
+    get displayLocationDescription() {
+        return this._displayLocationDescription = this._displayLocationDescription || (
+            "Beat " + this.displayIndex.toString() + " " + this.description +
+            ", Measure " + this.displayMeasureIndex.toString()
+        );
+    },
+    _resetDisplayLocationDescription: function() {
+        this._displayLocationDescription = null;
+    },
+    get displayMeasureIndex() {
+        return this.measure.displayIndex;
+    },
+    get displayIndex() {
+        return this.index + Constants.displayIndexOffset;
+    },
+    get index() {
+        return this.measure.beats.indexOf(this);
     },
     onStarted: function() {
         this.metronome.currentBeat = this;
-        console.log("beat onStarted", this.displayString); ////////////////////////////////////
+        console.log("beat onStarted", this.displayLocationDescription);
     },
     get metronome() {
         return this.metronomeSetting.metronome;
+    },
+    recalculateCaches: function() {
+        this._resetDisplayLocationDescription();
+        this.displayLocationDescription;
     }
 };
 
