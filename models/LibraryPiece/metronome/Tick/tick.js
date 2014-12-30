@@ -62,5 +62,10 @@ Tick.prototype = {
     },
     onStarted: function() {
         // must first be enabled via this.enableOnStarted()
+    },
+    stop: function() {
+        this.tones.forEach(function(each) {
+            each.stop();
+        })
     }
 };

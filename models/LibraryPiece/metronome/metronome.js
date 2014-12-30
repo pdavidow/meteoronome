@@ -64,5 +64,14 @@ Metronome.prototype = {
     onEnded: function() {
         this.state.isMetronomeOn = false;
         console.log("metronome onEnded");
+    },
+    stop: function() {
+        this.stopTicks();
+        this.onEnded();
+    },
+    stopTicks: function() {
+        this.ticks.forEach(function(each) {
+            each.stop();
+        })
     }
 };

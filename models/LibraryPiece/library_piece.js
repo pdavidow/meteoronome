@@ -49,11 +49,14 @@ LibraryPiece.prototype = {
             that.addMeasure(each); // ES6 fat arrow
         });
     },
-    get metronomeState() {
-      return this.metronomeSetting.metronomeState;
+    get metronome() {
+      return this.metronomeSetting.metronome;
     },
     get metronomeSetting() {
         return this._metronomeSetting = this._metronomeSetting || new MetronomeSetting(this, 15, 1);
+    },
+    get metronomeState() {
+        return this.metronome.state;
     },
     get beats() {
         return _.flatten(this.measures.map(function(each) {

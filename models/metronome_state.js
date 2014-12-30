@@ -3,12 +3,12 @@ MetronomeState = function(metronome) {
     this.metronome = metronome;
 };
 
-// todo: Session usage is TEMP ONLY............... this needs to be instance-based
+// todo: Session usage is TEMP ONLY, needs to be instance-based
 
 MetronomeState.prototype = {
     get isMetronomeOn() {
         var value = Session.get("isMetronomeOn");
-        if (value === null) {Session.set("isMetronomeOn", false)};
+        if (_.isUndefined(value)) {Session.set("isMetronomeOn", false)};
         return Session.get("isMetronomeOn");
     },
     set isMetronomeOn(boolean) {
