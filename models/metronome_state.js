@@ -3,24 +3,25 @@ MetronomeState = function(metronome) {
     this.metronome = metronome;
 };
 
-// todo: Session usage is TEMP ONLY, needs to be instance-based
-
 MetronomeState.prototype = {
+    get _reactiveDict() {
+      return this.__reactiveDict = this.__reactiveDict || new ReactiveDict();
+    },
     get isMetronomeOn() {
-        var value = Session.get("isMetronomeOn");
-        if (_.isUndefined(value)) {Session.set("isMetronomeOn", false)};
-        return Session.get("isMetronomeOn");
+        var value = this._reactiveDict.get("isMetronomeOn");
+        if (_.isUndefined(value)) {this._reactiveDict.set("isMetronomeOn", false)};
+        return this._reactiveDict.get("isMetronomeOn");
     },
     set isMetronomeOn(boolean) {
         check(boolean, Boolean);
-        Session.set("isMetronomeOn", boolean);
-        if (!Session.get("isMetronomeOn")) {Session.set("currentBeat", null)};
+        this._reactiveDict.set("isMetronomeOn", boolean);
+        if (!this._reactiveDict.get("isMetronomeOn")) {this._reactiveDict.set("currentBeat", null)};
     },
     get currentBeat() {
-        return Session.get("currentBeat");
+        return this._reactiveDict.get("currentBeat");
     },
     set currentBeat(beat) {
         check(beat, Match.OneOf(null, Beat));
-        Session.set("currentBeat", beat);
+        this._reactiveDict.set("currentBeat", beat);
     }
 }
