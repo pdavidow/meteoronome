@@ -10,7 +10,7 @@ Meteor.methods({
                 isRedundant: true,
                 pieceId: redundancy._id
             }
-        };
+        }
         var pieceId = PieceCollection.insert(piece.toJSONValue());
         return {
             isRedundant: false,

@@ -14,15 +14,21 @@ LibraryPieceFactorySpec = {
     get catalogReference() {
         return "";
     },
+    addMeasuresToPiece: function(libraryPiece) {
+        libraryPiece.addMeasures(this.measures);
+    },
     get measures() {
         Intent.subtypeMustImplement();
+    },
+    applyMetronomeSetting: function(setting) {
     },
     get piece() {
         return this._piece = this._piece || this._makePiece();
     },
     get factoryPiece() {
         var libraryPiece = new LibraryPiece(this.myName, this.composer, this.catalogReference);
-        libraryPiece.addMeasures(this.measures);
+        this.addMeasuresToPiece(libraryPiece);
+        this.applyMetronomeSetting(libraryPiece.metronomeSetting);
         return libraryPiece;
     },
     _makePiece: function() {

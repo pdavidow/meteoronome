@@ -53,7 +53,7 @@ LibraryPiece.prototype = {
       return this.metronomeSetting.metronome;
     },
     get metronomeSetting() {
-        return this._metronomeSetting = this._metronomeSetting || new MetronomeSetting(this, 15, 1);
+        return this._metronomeSetting = this._metronomeSetting || new MetronomeSetting(this);
     },
     get metronomeState() {
         return this.metronome.state;

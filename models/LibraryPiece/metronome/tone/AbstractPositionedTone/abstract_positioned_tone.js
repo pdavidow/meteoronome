@@ -25,8 +25,10 @@ Object.defineProperties(AbstractPositionedTone.prototype, {
 
 _.extend(AbstractPositionedTone.prototype, {
     startBufferAtTime: function(time) {
-        if (!this.isStereo) {return AbstractTone.prototype.startBufferAtTime.call(this, time)}; // ES6 super
+        if (!this.isStereo) {
+            return AbstractTone.prototype.startBufferAtTime.call(this, time)
+        } // ES6 super
         return Audio.startBufferAtTimeAtPosition(this.buffer, time, this.position);
     }
-})
+});
 

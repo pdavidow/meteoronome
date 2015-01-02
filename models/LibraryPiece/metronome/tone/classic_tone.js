@@ -12,4 +12,4 @@ Object.defineProperties(ClassicTone.prototype, {
 });
 
 _.extend(ClassicTone.prototype, {
-})
+});

@@ -86,11 +86,11 @@ Beat.prototype = {
         while (index < this.tick_amount) {
             indicies.push(index);
             index += interval;
-        };
+        }
         return indicies;
     },
     get description() {
-        return '{' + this.rightHand + ',' + this.leftHand + '}';
+        return '{' + this.rightHand.toString() + ',' + this.leftHand.toString() + '}';
     },
     get displayLocationDescription() {
         return this._displayLocationDescription = this._displayLocationDescription || (
@@ -117,7 +117,7 @@ Beat.prototype = {
     get metronome() {
         return this.metronomeSetting.metronome;
     },
-    recalculateCaches: function() {
+    recalcCaches: function() {
         this._resetDisplayLocationDescription();
         this.displayLocationDescription;
     }

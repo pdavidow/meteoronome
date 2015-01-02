@@ -15,4 +15,4 @@ _.extend(OnStartSilentTone.prototype, {
     onEnded: function() {
         this.onPerceivedStarted();
     }
-})
+});

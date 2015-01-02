@@ -12,4 +12,4 @@ Object.defineProperties(BackgroundTone.prototype, {
 });
 
 _.extend(BackgroundTone.prototype, {
-})
+});

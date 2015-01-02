@@ -9,17 +9,15 @@ Metronome.prototype = {
     get state() {
         return this._state = this._state || new MetronomeState(this);
     },
-    startOnBeats: function(beats) {
-        this.beats = beats;
-        this.start();
+    start: function() {
+        this._reset();
+        this.recalcCaches(); // todo: only done to preset for efficiency -- only need to do once
+        this.startAtTime(window.context.currentTime);
         this.state.isStarted = true;
     },
-    start: function() {
-        this.startAtTime(window.context.currentTime);
-    },
     startAtTime: function(timeAtStart) {
-        this.timeAtStart = timeAtStart;
-        this.tickStartTimeOffset = 0;
+        this.timeAtStart = timeAtStart; // todo: turn into getter/setter w/ lazy init
+        this.tickStartTimeOffset = 0; // todo: turn into getter/setter w/ lazy init
         this.startTicks();
     },
     startTicks: function() {
@@ -33,12 +31,14 @@ Metronome.prototype = {
         this.tickStartTimeOffset += tick.waitSeconds;
     },
     get beats() {
-      return this._beats;
+      return this._beats = this._beats || this.setting.beatsOfInterest;
     },
-    set beats(beats) {
-        this._beats = beats;
+    _resetBeats: function() {
+        this._beats = null;
         this._resetTicks();
-        this.recalculateCaches();
+    },
+    _reset: function() {
+        this._resetBeats();
     },
     get ticks() {
         return this._ticks = this._ticks || this._makeTicks();
@@ -59,25 +59,44 @@ Metronome.prototype = {
     get silentEndTick() {
         return new NoWaitSilentTick(this.onEnded);
     },
-    set currentBeat(beat) {
-        this.state.currentBeat = beat;
-    },
     onEnded: function() {
+        if (this.isLoop) {
+            this.loop();
+        } else {
+            this.stopped();
+        }
+    },
+    get isLoop() {
+        return this.setting.isLoop;
+    },
+    loop: function() {
+        this.state.incrementLoopCount();
+        this.startAtTime(this.timeAtStart + this.tickStartTimeOffset);
+        console.log("metronome looped");
+    },
+    stopped: function() {
         this.state.isStarted = false;
-        console.log("metronome onEnded");
+        this.setCurrentBeatToFirst();
+        console.log("metronome stopped");
     },
     stop: function() {
         this.stopTicks();
-        this.onEnded();
+        this.stopped();
     },
     stopTicks: function() {
         this.ticks.forEach(function(each) {
             each.stop();
         })
     },
-    recalculateCaches: function() {
+    recalcCaches: function() {
         this.beats.forEach(function(each) {
-            each.recalculateCaches();
+            each.recalcCaches();
         });
+    },
+    set currentBeat(beat) {
+        this.state.currentBeat = beat;
+    },
+    setCurrentBeatToFirst: function() {
+        this.currentBeat = _.first(this.beats);
     }
 };

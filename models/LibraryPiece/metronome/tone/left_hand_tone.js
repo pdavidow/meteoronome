@@ -15,4 +15,4 @@ Object.defineProperties(LeftHandTone.prototype, {
 });
 
 _.extend(LeftHandTone.prototype, {
-})
+});

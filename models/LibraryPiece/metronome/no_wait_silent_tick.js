@@ -12,4 +12,4 @@ _.extend(NoWaitSilentTick.prototype, {
     _makeTones: function() {
         return [new OnStartSilentTone(this.onEnded)];
     }
-})
+});

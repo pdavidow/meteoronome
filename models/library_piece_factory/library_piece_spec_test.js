@@ -28,3 +28,12 @@ Object.defineProperties(LibraryPieceSpec_Test, {
         return measures;
     }}
 });
+
+_.extend(LibraryPieceSpec_Test, {
+    applyMetronomeSetting: function(setting) {
+        check(setting, MetronomeSetting);
+        setting.classicTicksPerMinute = 30;
+        setting.classicTicksPerBeat = 1;
+        setting.isLoop = true;
+    }
+});

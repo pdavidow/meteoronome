@@ -12,4 +12,4 @@ _.extend(BeatFirstTick.prototype, {
     onStarted: function() {
         this.beat.onStarted();
     }
-})
+});

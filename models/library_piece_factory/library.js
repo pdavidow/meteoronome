@@ -11,4 +11,4 @@ Library = {
     reset: function() {
         this.specSubtypes.forEach(function(each) {each.reset()});
     }
-}
+};

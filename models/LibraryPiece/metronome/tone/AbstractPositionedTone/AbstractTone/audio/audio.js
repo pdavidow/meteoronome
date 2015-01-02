@@ -7,7 +7,7 @@ Audio = {
         }
         catch (e) {
             alert('Web Audio API is not supported in Audio browser');
-        };
+        }
         var bufferLoader = new BufferLoader(context, Audio.toneSounds, Audio.finishedLoading);
         bufferLoader.load();
     },
@@ -38,7 +38,9 @@ Audio = {
     },
     finishedLoading: function(buffers) {
         Audio.assignTones(buffers);
-        if (Audio.finishedLoadingFunction) {Audio.finishedLoadingFunction.apply()};
+        if (Audio.finishedLoadingFunction) {
+            Audio.finishedLoadingFunction.apply()
+        }
     },
     assignTones: function(buffers) {
         Audio.tone_700hz = buffers[0];
@@ -81,4 +83,4 @@ Audio = {
         source.start(time);
         return source;
     }
-}
+};
