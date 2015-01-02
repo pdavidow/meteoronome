@@ -9,7 +9,7 @@
 <template name="test">
     Loop? <input class="check" id="isLoop" type="checkbox" checked={{isLoop}} disabled={{isMetronomeStarted}}>
     <form class="test">
-        <input type="submit" value={{pieceName}}>
+        <input type="submit" value={{pieceName}} disabled={{isMetronomeStarted}}>
     </form>
     <button id="stop" disabled={{isMetronomeStopped}}>Stop</button>
     <br/><br/>
