@@ -55,9 +55,6 @@ LibraryPiece.prototype = {
     get metronomeSetting() {
         return this._metronomeSetting = this._metronomeSetting || new MetronomeSetting(this);
     },
-    get metronomeState() {
-        return this.metronome.state;
-    },
     get beats() {
         return _.flatten(this.measures.map(function(each) {
             return each.beats;

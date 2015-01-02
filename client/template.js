@@ -6,10 +6,10 @@ if (Meteor.isClient) {
             return testPiece.name;
         },
         isMetronomeStarted: function() {
-            return testPiece.metronomeState.isStarted;
+            return testPiece.metronome.isStarted;
         },
         isMetronomeStopped: function() {
-            return testPiece.metronomeState.isStopped;
+            return testPiece.metronome.isStopped;
         },
         currentBeat: function() {
             testPiece.metronome.currentBeatDep.depend();
@@ -19,7 +19,7 @@ if (Meteor.isClient) {
             return testPiece.metronomeSetting.isLoop;
         },
         loopCount: function() {
-            var count = testPiece.metronomeState.loopCount;
+            var count = testPiece.metronome.loopCount;
             return count == 0 ? "---" : count.toString();
         }
     });

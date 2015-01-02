@@ -6,14 +6,11 @@ Metronome = function(setting) {
 };
 
 Metronome.prototype = {
-    get state() {
-        return this._state = this._state || new MetronomeState(this);
-    },
     start: function () {
         this._reset();
         this.recalcCaches(); // todo: only done to preset for efficiency -- only need to do once
         this.startAtTime(window.context.currentTime);
-        this.state.isStarted = true;
+        this.isStarted = true;
     },
     startAtTime: function (timeAtStart) {
         this.timeAtStart = timeAtStart; // todo: turn into getter/setter w/ lazy init
@@ -70,12 +67,12 @@ Metronome.prototype = {
         return this.setting.isLoop;
     },
     loop: function () {
-        this.state.incrementLoopCount();
+        this.incrementLoopCount();
         this.startAtTime(this.timeAtStart + this.tickStartTimeOffset);
         console.log("metronome looped");
     },
     stopped: function () {
-        this.state.isStarted = false;
+        this.isStarted = false;
         this.setCurrentBeatToFirst();
         console.log("metronome stopped");
     },
@@ -87,11 +84,6 @@ Metronome.prototype = {
         this.ticks.forEach(function (each) {
             each.stop();
         })
-    },
-    recalcCaches: function () {
-        this.beats.forEach(function (each) {
-            each.recalcCaches();
-        });
     },
     get currentBeat() {
         if (!this._currentBeat) {
@@ -110,7 +102,52 @@ Metronome.prototype = {
     setCurrentBeatToFirst: function () {
         this.currentBeat = _.first(this.beats);
     },
+    get isStarted() {
+        var value = this._reactiveDict.get("isStarted");
+        if (_.isNull(value) || _.isUndefined(value)) {
+            this._reactiveDict.set("isStarted", false);
+            return this._reactiveDict.get("isStarted");
+        }
+        return value;
+    },
+    set isStarted(boolean) {
+        check(boolean, Boolean);
+        this._reactiveDict.set("isStarted", boolean);
+        if (this._reactiveDict.get("isStarted")) {
+            this.incrementLoopCount();
+        } else {
+            this.resetLoopCount();
+            this._resetCurrentBeat();
+        }
+    },
+    get isStopped() {
+        return !this.isStarted;
+    },
+    get loopCount() {
+        var value = this._reactiveDict.get("loopCount");
+        if (_.isNull(value) || _.isUndefined(value)) {
+            this._reactiveDict.set("loopCount", 0);
+            return this._reactiveDict.get("loopCount");
+        }
+        return value;
+    },
+    incrementLoopCount: function() {
+        var count = this._reactiveDict.get("loopCount");
+        count += 1;
+        this._reactiveDict.set("loopCount", count);
+    },
+    resetLoopCount: function() {
+        this._reactiveDict.set("loopCount", null);
+    },
     get currentBeatDep() {
         return this._currentBeatDep = this._currentBeatDep || new Deps.Dependency;
+    },
+    get _reactiveDict() {
+        return this.__reactiveDict = this.__reactiveDict || new ReactiveDict();
+    },
+    recalcCaches: function () {
+        this.beats.forEach(function (each) {
+            each.recalcCaches();
+        });
     }
 };
