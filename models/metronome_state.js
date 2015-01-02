@@ -22,29 +22,11 @@ MetronomeState.prototype = {
             this.incrementLoopCount();
         } else {
             this.resetLoopCount();
-            this._resetCurrentBeat();
+            this.metronome._resetCurrentBeat(); //////////////////
         }
     },
     get isStopped() {
         return !this.isStarted;
-    },
-    get currentBeat_displayLocationDescription() {
-        this.currentBeat;
-        return this._reactiveDict.get("displayLocationDescription");
-    },
-    get currentBeat() {
-        if (!this._currentBeat) {
-            this.metronome.setCurrentBeatToFirst()
-        } // todo: should be moved into Metronome proper
-        return this._currentBeat;
-    },
-    set currentBeat(beat) {
-        check(beat, Beat);
-        this._currentBeat = beat;
-        this._reactiveDict.set("displayLocationDescription", beat.displayLocationDescription); // efficiency is important
-    },
-    _resetCurrentBeat: function() {
-        this._currentBeat = null;
     },
     get loopCount() {
         var value = this._reactiveDict.get("loopCount");

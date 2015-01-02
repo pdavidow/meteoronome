@@ -12,7 +12,8 @@ if (Meteor.isClient) {
             return testPiece.metronomeState.isStopped;
         },
         currentBeat: function() {
-            return testPiece.metronomeState.currentBeat_displayLocationDescription;
+            testPiece.metronome.currentBeatDep.depend();
+            return testPiece.metronome.currentBeat.displayLocationDescription;
         },
         isLoop: function() {
             return testPiece.metronomeSetting.isLoop;

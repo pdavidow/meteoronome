@@ -9,57 +9,57 @@ Metronome.prototype = {
     get state() {
         return this._state = this._state || new MetronomeState(this);
     },
-    start: function() {
+    start: function () {
         this._reset();
         this.recalcCaches(); // todo: only done to preset for efficiency -- only need to do once
         this.startAtTime(window.context.currentTime);
         this.state.isStarted = true;
     },
-    startAtTime: function(timeAtStart) {
+    startAtTime: function (timeAtStart) {
         this.timeAtStart = timeAtStart; // todo: turn into getter/setter w/ lazy init
         this.tickStartTimeOffset = 0; // todo: turn into getter/setter w/ lazy init
         this.startTicks();
     },
-    startTicks: function() {
+    startTicks: function () {
         var that = this;
-        this.ticks.forEach(function(each) {
+        this.ticks.forEach(function (each) {
             that.startTick(each); // ES6 fat arrow
         })
     },
-    startTick: function(tick) {
+    startTick: function (tick) {
         tick.startAtTime(this.timeAtStart + this.tickStartTimeOffset);
         this.tickStartTimeOffset += tick.waitSeconds;
     },
     get beats() {
-      return this._beats = this._beats || this.setting.beatsOfInterest;
+        return this._beats = this._beats || this.setting.beatsOfInterest;
     },
-    _resetBeats: function() {
+    _resetBeats: function () {
         this._beats = null;
         this._resetTicks();
     },
-    _reset: function() {
+    _reset: function () {
         this._resetBeats();
     },
     get ticks() {
         return this._ticks = this._ticks || this._makeTicks();
     },
-    _resetTicks: function() {
+    _resetTicks: function () {
         this._ticks = null;
     },
-    _makeTicks: function() {
+    _makeTicks: function () {
         var ticks = this.requestedTicks;
         ticks.push(this.silentEndTick);
         return ticks;
     },
     get requestedTicks() {
-        return _.flatten(this.beats.map(function(each) {
+        return _.flatten(this.beats.map(function (each) {
             return each.ticks;
         }));
     },
     get silentEndTick() {
         return new NoWaitSilentTick(this.onEnded);
     },
-    onEnded: function() {
+    onEnded: function () {
         if (this.isLoop) {
             this.loop();
         } else {
@@ -69,34 +69,48 @@ Metronome.prototype = {
     get isLoop() {
         return this.setting.isLoop;
     },
-    loop: function() {
+    loop: function () {
         this.state.incrementLoopCount();
         this.startAtTime(this.timeAtStart + this.tickStartTimeOffset);
         console.log("metronome looped");
     },
-    stopped: function() {
+    stopped: function () {
         this.state.isStarted = false;
         this.setCurrentBeatToFirst();
         console.log("metronome stopped");
     },
-    stop: function() {
+    stop: function () {
         this.stopTicks();
         this.stopped();
     },
-    stopTicks: function() {
-        this.ticks.forEach(function(each) {
+    stopTicks: function () {
+        this.ticks.forEach(function (each) {
             each.stop();
         })
     },
-    recalcCaches: function() {
-        this.beats.forEach(function(each) {
+    recalcCaches: function () {
+        this.beats.forEach(function (each) {
             each.recalcCaches();
         });
     },
-    set currentBeat(beat) {
-        this.state.currentBeat = beat;
+    get currentBeat() {
+        if (!this._currentBeat) {
+            this.setCurrentBeatToFirst();
+        }
+        return this._currentBeat;
     },
-    setCurrentBeatToFirst: function() {
+    set currentBeat(beat) {
+        check(beat, Beat);
+        this._currentBeat = beat;
+        this.currentBeatDep.changed();
+    },
+    _resetCurrentBeat: function() {
+        this._currentBeat = null;
+    },
+    setCurrentBeatToFirst: function () {
         this.currentBeat = _.first(this.beats);
+    },
+    get currentBeatDep() {
+        return this._currentBeatDep = this._currentBeatDep || new Deps.Dependency;
     }
 };
