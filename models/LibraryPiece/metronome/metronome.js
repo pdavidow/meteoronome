@@ -6,44 +6,51 @@ Metronome = function(setting) {
 };
 
 Metronome.prototype = {
-    start: function () {
-        this._reset();
+    get timeAtStart() {
+        return this._timeAtStart = this._timeAtStart || window.context.currentTime;
+    },
+    set timeAtStart(value) {
+        this._timeAtStart = value;
+    },
+    get tickStartTimeOffset() {
+        return this._tickStartTimeOffset = this._tickStartTimeOffset || 0;
+    },
+    set tickStartTimeOffset(value) {
+        this._tickStartTimeOffset = value;
+    },
+    _resetTickStartTimeOffset: function() {
+        this.tickStartTimeOffset = null;
+    },
+    start: function() {
+        this._resetBeats();
         this.recalcCaches(); // todo: only done to preset for efficiency -- only need to do once
-        this.startAtTime(window.context.currentTime);
+        this.startTicks();
         this.isStarted = true;
     },
-    startAtTime: function (timeAtStart) {
-        this.timeAtStart = timeAtStart; // todo: turn into getter/setter w/ lazy init
-        this.tickStartTimeOffset = 0; // todo: turn into getter/setter w/ lazy init
-        this.startTicks();
-    },
-    startTicks: function () {
+    startTicks: function() {
         var that = this;
         this.ticks.forEach(function (each) {
             that.startTick(each); // ES6 fat arrow
         })
     },
-    startTick: function (tick) {
+    startTick: function(tick) {
         tick.startAtTime(this.timeAtStart + this.tickStartTimeOffset);
         this.tickStartTimeOffset += tick.waitSeconds;
     },
     get beats() {
         return this._beats = this._beats || this.setting.beatsOfInterest;
     },
-    _resetBeats: function () {
+    _resetBeats: function() {
         this._beats = null;
         this._resetTicks();
-    },
-    _reset: function () {
-        this._resetBeats();
     },
     get ticks() {
         return this._ticks = this._ticks || this._makeTicks();
     },
-    _resetTicks: function () {
+    _resetTicks: function() {
         this._ticks = null;
     },
-    _makeTicks: function () {
+    _makeTicks: function() {
         var ticks = this.requestedTicks;
         ticks.push(this.silentEndTick);
         return ticks;
@@ -56,7 +63,7 @@ Metronome.prototype = {
     get silentEndTick() {
         return new NoWaitSilentTick(this.onEnded);
     },
-    onEnded: function () {
+    onEnded: function() {
         if (this.isLoop) {
             this.loop();
         } else {
@@ -66,21 +73,23 @@ Metronome.prototype = {
     get isLoop() {
         return this.setting.isLoop;
     },
-    loop: function () {
+    loop: function() {
         this.incrementLoopCount();
-        this.startAtTime(this.timeAtStart + this.tickStartTimeOffset);
+        this.timeAtStart += this.tickStartTimeOffset;
+        this._resetTickStartTimeOffset();
+        this.startTicks();
         console.log("metronome looped");
     },
-    stopped: function () {
+    stopped: function() {
         this.isStarted = false;
         this.setCurrentBeatToFirst();
         console.log("metronome stopped");
     },
-    stop: function () {
+    stop: function() {
         this.stopTicks();
         this.stopped();
     },
-    stopTicks: function () {
+    stopTicks: function() {
         this.ticks.forEach(function (each) {
             each.stop();
         })
@@ -99,7 +108,7 @@ Metronome.prototype = {
     _resetCurrentBeat: function() {
         this._currentBeat = null;
     },
-    setCurrentBeatToFirst: function () {
+    setCurrentBeatToFirst: function() {
         this.currentBeat = _.first(this.beats);
     },
     get isStarted() {
@@ -145,7 +154,7 @@ Metronome.prototype = {
     get _reactiveDict() {
         return this.__reactiveDict = this.__reactiveDict || new ReactiveDict();
     },
-    recalcCaches: function () {
+    recalcCaches: function() {
         this.beats.forEach(function (each) {
             each.recalcCaches();
         });
