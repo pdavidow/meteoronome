@@ -12,6 +12,9 @@ Metronome.prototype = {
     set timeAtStart(value) {
         this._timeAtStart = value;
     },
+    _resetTimeAtStart: function() {
+        this.timeAtStart = null;
+    },
     get tickStartTimeOffset() {
         return this._tickStartTimeOffset = this._tickStartTimeOffset || 0;
     },
@@ -22,8 +25,8 @@ Metronome.prototype = {
         this.tickStartTimeOffset = null;
     },
     start: function() {
-        this._resetBeats();
-        this.recalcCaches(); // todo: only done to preset for efficiency -- only need to do once
+        this._reset();
+        this._recalcCaches(); // todo: only done to preset for efficiency -- only need to do once
         this.startTicks();
         this.isStarted = true;
     },
@@ -43,6 +46,11 @@ Metronome.prototype = {
     _resetBeats: function() {
         this._beats = null;
         this._resetTicks();
+    },
+    _reset: function() {
+        this._resetTimeAtStart();
+        this._resetTickStartTimeOffset();
+        this._resetBeats();
     },
     get ticks() {
         return this._ticks = this._ticks || this._makeTicks();
@@ -154,7 +162,7 @@ Metronome.prototype = {
     get _reactiveDict() {
         return this.__reactiveDict = this.__reactiveDict || new ReactiveDict();
     },
-    recalcCaches: function() {
+    _recalcCaches: function() {
         this.beats.forEach(function (each) {
             each.recalcCaches();
         });
