@@ -12,7 +12,7 @@ Metronome.prototype = {
     set timeAtStart(value) {
         this._timeAtStart = value;
     },
-    _resetTimeAtStart: function() {
+    resetTimeAtStart: function() {
         this.timeAtStart = null;
     },
     get tickStartTimeOffset() {
@@ -21,12 +21,12 @@ Metronome.prototype = {
     set tickStartTimeOffset(value) {
         this._tickStartTimeOffset = value;
     },
-    _resetTickStartTimeOffset: function() {
+    resetTickStartTimeOffset: function() {
         this.tickStartTimeOffset = null;
     },
     start: function() {
-        this._reset();
-        this._recalcCaches(); // todo: only done to preset for efficiency -- only need to do once
+        this.reset();
+        this.recalcCaches(); // todo: only done to preset for efficiency -- only need to do once
         this.startTicks();
         this.isStarted = true;
     },
@@ -43,22 +43,24 @@ Metronome.prototype = {
     get beats() {
         return this._beats = this._beats || this.setting.beatsOfInterest;
     },
-    _resetBeats: function() {
+    resetBeats: function() {
         this._beats = null;
-        this._resetTicks();
+        this.resetTicks();
     },
-    _reset: function() {
-        this._resetTimeAtStart();
-        this._resetTickStartTimeOffset();
-        this._resetBeats();
+    reset: function() {
+        this.resetTimeAtStart();
+        this.resetTickStartTimeOffset();
+        this.resetBeats();
+        this.resetLoopCount();
+        this.resetCurrentBeat();
     },
     get ticks() {
-        return this._ticks = this._ticks || this._makeTicks();
+        return this._ticks = this._ticks || this.makeTicks();
     },
-    _resetTicks: function() {
+    resetTicks: function() {
         this._ticks = null;
     },
-    _makeTicks: function() {
+    makeTicks: function() {
         var ticks = this.requestedTicks;
         ticks.push(this.silentEndTick);
         return ticks;
@@ -84,7 +86,7 @@ Metronome.prototype = {
     loop: function() {
         this.incrementLoopCount();
         this.timeAtStart += this.tickStartTimeOffset;
-        this._resetTickStartTimeOffset();
+        this.resetTickStartTimeOffset();
         this.startTicks();
         console.log("metronome looped");
     },
@@ -113,56 +115,56 @@ Metronome.prototype = {
         this._currentBeat = beat;
         this.currentBeatDep.changed();
     },
-    _resetCurrentBeat: function() {
+    resetCurrentBeat: function() {
         this._currentBeat = null;
     },
     setCurrentBeatToFirst: function() {
         this.currentBeat = _.first(this.beats);
     },
     get isStarted() {
-        var value = this._reactiveDict.get("isStarted");
+        var value = this.reactiveDict.get("isStarted");
         if (_.isNull(value) || _.isUndefined(value)) {
-            this._reactiveDict.set("isStarted", false);
-            return this._reactiveDict.get("isStarted");
+            this.reactiveDict.set("isStarted", false);
+            return this.reactiveDict.get("isStarted");
         }
         return value;
     },
     set isStarted(boolean) {
         check(boolean, Boolean);
-        this._reactiveDict.set("isStarted", boolean);
-        if (this._reactiveDict.get("isStarted")) {
+        this.reactiveDict.set("isStarted", boolean);
+        if (this.reactiveDict.get("isStarted")) {
             this.incrementLoopCount();
         } else {
             this.resetLoopCount();
-            this._resetCurrentBeat();
+            this.resetCurrentBeat();
         }
     },
     get isStopped() {
         return !this.isStarted;
     },
     get loopCount() {
-        var value = this._reactiveDict.get("loopCount");
+        var value = this.reactiveDict.get("loopCount");
         if (_.isNull(value) || _.isUndefined(value)) {
-            this._reactiveDict.set("loopCount", 0);
-            return this._reactiveDict.get("loopCount");
+            this.reactiveDict.set("loopCount", 0);
+            return this.reactiveDict.get("loopCount");
         }
         return value;
     },
     incrementLoopCount: function() {
-        var count = this._reactiveDict.get("loopCount");
+        var count = this.reactiveDict.get("loopCount");
         count += 1;
-        this._reactiveDict.set("loopCount", count);
+        this.reactiveDict.set("loopCount", count);
     },
     resetLoopCount: function() {
-        this._reactiveDict.set("loopCount", null);
+        this.reactiveDict.set("loopCount", null);
     },
     get currentBeatDep() {
         return this._currentBeatDep = this._currentBeatDep || new Deps.Dependency;
     },
-    get _reactiveDict() {
-        return this.__reactiveDict = this.__reactiveDict || new ReactiveDict();
+    get reactiveDict() {
+        return this._reactiveDict = this._reactiveDict || new ReactiveDict();
     },
-    _recalcCaches: function() {
+    recalcCaches: function() {
         this.beats.forEach(function (each) {
             each.recalcCaches();
         });

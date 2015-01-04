@@ -4,8 +4,8 @@ MetronomeSetting = function(piece) {
 };
 
 MetronomeSetting.prototype = {
-    get _reactiveDict() {
-        return this.__reactiveDict = this.__reactiveDict || new ReactiveDict();
+    get reactiveDict() {
+        return this._reactiveDict = this._reactiveDict || new ReactiveDict();
     },
     get classicTicksPerMinute() {
       return this._classicTicksPerMinute = this._classicTicksPerMinute || 30;
@@ -22,16 +22,16 @@ MetronomeSetting.prototype = {
         this._classicTicksPerBeat = value;
     },
     get isLoop() {
-        var value = this._reactiveDict.get("isLoop");
+        var value = this.reactiveDict.get("isLoop");
         if (_.isNull(value) || _.isUndefined(value)) {
-            this._reactiveDict.set("isLoop", false);
-            return this._reactiveDict.get("isLoop");
+            this.reactiveDict.set("isLoop", false);
+            return this.reactiveDict.get("isLoop");
         }
         return value;
     },
     set isLoop(value) {
         check(value, Boolean);
-        this._reactiveDict.set("isLoop", value);
+        this.reactiveDict.set("isLoop", value);
     },
     toggleIsLoop: function() {
         this.isLoop = !this.isLoop;

@@ -42,19 +42,19 @@ Beat.prototype = {
         return this._tick_amount = this._tick_amount || Mathjs_local.lcm(this.rightHand, this.leftHand);
     },
     ticksForWaitSeconds: function(waitSeconds) {
-        var ticks = this._rawTicksForWaitSeconds(waitSeconds);
+        var ticks = this.rawTicksForWaitSeconds(waitSeconds);
         this.embellishTicks(ticks);
         return ticks;
     },
-    _rawTicksForWaitSeconds: function(waitSeconds) {
-        var first = this._firstTickForWaitSeconds(waitSeconds);
-        var remaining = this._remainingTicksForWaitSeconds(waitSeconds);
+    rawTicksForWaitSeconds: function(waitSeconds) {
+        var first = this.firstTickForWaitSeconds(waitSeconds);
+        var remaining = this.remainingTicksForWaitSeconds(waitSeconds);
         return [first].concat(remaining);
     },
-    _firstTickForWaitSeconds: function(waitSeconds) {
+    firstTickForWaitSeconds: function(waitSeconds) {
         return new BeatFirstTick(this, waitSeconds);
     },
-    _remainingTicksForWaitSeconds: function(waitSeconds) {
+    remainingTicksForWaitSeconds: function(waitSeconds) {
         return _.range(2, this.tick_amount).map(function(each) {
             return new Tick(waitSeconds);
         });
@@ -98,7 +98,7 @@ Beat.prototype = {
             ", Measure " + this.displayMeasureIndex.toString()
         );
     },
-    _resetDisplayLocationDescription: function() {
+    resetDisplayLocationDescription: function() {
         this._displayLocationDescription = null;
     },
     get displayMeasureIndex() {
@@ -118,7 +118,7 @@ Beat.prototype = {
         return this.metronomeSetting.metronome;
     },
     recalcCaches: function() {
-        this._resetDisplayLocationDescription();
+        this.resetDisplayLocationDescription();
         this.displayLocationDescription;
     }
 };
