@@ -65,6 +65,16 @@ LibraryPiece.prototype = {
     },
     stopMetronome: function() {
         this.metronomeSetting.stopMetronome();
+    },
+    reset: function() {
+        this.beats.forEach(function(each) {
+            each.reset();
+        });
+    },
+    loadDisplayCaches: function() {
+        this.beats.forEach(function(each) {
+            each.loadDisplayCaches();
+        });
     }
 
     /*,

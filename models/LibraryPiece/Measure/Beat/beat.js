@@ -38,6 +38,9 @@ Beat.prototype = {
     get ticks() {
         return this._ticks = this._ticks || this.metronomeSetting.ticksForBeat(this);
     },
+    resetTicks: function() {
+        this._ticks = null;
+    },
     get tick_amount() {
         return this._tick_amount = this._tick_amount || Mathjs_local.lcm(this.rightHand, this.leftHand);
     },
@@ -117,8 +120,12 @@ Beat.prototype = {
     get metronome() {
         return this.metronomeSetting.metronome;
     },
-    recalcCaches: function() {
+    reset: function() {
+        this.resetTicks();
         this.resetDisplayLocationDescription();
+    },
+    loadDisplayCaches: function() {
+        this.resetDisplayLocationDescription(); // thus don't have to rely on prior reset, play it safe
         this.displayLocationDescription;
     }
 };

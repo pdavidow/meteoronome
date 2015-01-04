@@ -4,9 +4,6 @@ MetronomeSetting = function(piece) {
 };
 
 MetronomeSetting.prototype = {
-    get reactiveDict() {
-        return this._reactiveDict = this._reactiveDict || new ReactiveDict();
-    },
     get classicTicksPerMinute() {
       return this._classicTicksPerMinute = this._classicTicksPerMinute || 30;
     },
@@ -36,6 +33,49 @@ MetronomeSetting.prototype = {
     toggleIsLoop: function() {
         this.isLoop = !this.isLoop;
     },
+    get isUseEntirePiece() {
+        var value = this.reactiveDict.get("isUseEntirePiece");
+        if (_.isNull(value) || _.isUndefined(value)) {
+            this.reactiveDict.set("isUseEntirePiece", true);
+            return this.reactiveDict.get("isUseEntirePiece");
+        }
+        return value;
+    },
+    set isUseEntirePiece(value) {
+        check(value, Boolean);
+        this.reactiveDict.set("isUseEntirePiece", value);
+    },
+    toggleIsUseEntirePiece: function() {
+        this.isUseEntirePiece = !this.isUseEntirePiece;
+    },
+    get beginMeasureIndex() {
+        return this._beginMeasureIndex = this._beginMeasureIndex || 0;
+    },
+    set beginMeasureIndex(value) {
+        check(value, Matcher.nonNegativeNumber);
+        this._beginMeasureIndex = value;
+    },
+    get endMeasureIndex() {
+        return this._endMeasureIndex = this._endMeasureIndex || 0;
+    },
+    set endMeasureIndex(value) {
+        check(value, Matcher.nonNegativeNumber);
+        this._endMeasureIndex = value;
+    },
+    get beginBeatIndex() {
+        return this._beginBeatIndex = this._beginBeatIndex || 0;
+    },
+    set beginBeatIndex(value) {
+        check(value, Matcher.nonNegativeNumber);
+        this._beginBeatIndex = value;
+    },
+    get endBeatIndex() {
+        return this._endBeatIndex = this._endBeatIndex || 0;
+    },
+    set endBeatIndex(value) {
+        check(value, Matcher.nonNegativeNumber);
+        this._endBeatIndex = value;
+    },
     get beatsOfInterest() {
         var that = this;
         return this.piece.beats.filter(function(each) {
@@ -43,9 +83,14 @@ MetronomeSetting.prototype = {
         });
     },
     isInterestedInBeat: function(beat) {
-      return true; ///////////// todo: apply setting
+        return true; // todo
+        if (this.isUseEntirePiece) {return true};
+
+        //var measureIndex = beat.measureIndex;
     },
     startMetronome: function() {
+        this.piece.reset();
+        this.piece.loadDisplayCaches(); // for efficiency. todo: investigate if need to do only once
         this.metronome.start();
     },
     stopMetronome: function() {
@@ -55,14 +100,14 @@ MetronomeSetting.prototype = {
         return this._metronome = this._metronome || new Metronome(this);
     },
     get ticksPerSecond() {
-        return this._ticksPerSecond = this._ticksPerSecond || this.classicTicksPerMinute / 60;
+        return this.classicTicksPerMinute / 60;
     },
     ticksForBeat: function(beat) {
         check(beat, Beat);
         var waitSeconds = this.classicTicksPerBeat / (beat.tick_amount * this.ticksPerSecond);
         return beat.ticksForWaitSeconds(waitSeconds);
+    },
+    get reactiveDict() {
+        return this._reactiveDict = this._reactiveDict || new ReactiveDict();
     }
 };
-
-
-

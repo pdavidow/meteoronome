@@ -1,7 +1,7 @@
 if (Meteor.isClient) {
     Meteor.startup(function () {
         Audio.initializeSound_onFinishedLoading(function() {
-            console.log("finishedLoading");
+            console.log("audio finished loading");
         });
     });
 }

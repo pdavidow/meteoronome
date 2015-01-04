@@ -13,18 +13,18 @@ Object.defineProperties(LibraryPieceSpec_Test, {
         measure = new Measure();
         measure.addBeats([
             new Beat(2,3),
-            new Beat(4,3),
-            new Beat(2,3)
+            //new Beat(4,3),
+            //new Beat(2,3)
         ]);
         measures.push(measure);
-
+/*
         measure = new Measure();
         measure.addBeats([
             new Beat(4,3),
             new Beat(7,3)
         ]);
         measures.push(measure);
-
+*/
         return measures;
     }}
 });
@@ -34,6 +34,6 @@ _.extend(LibraryPieceSpec_Test, {
         check(setting, MetronomeSetting);
         setting.classicTicksPerMinute = 30;
         setting.classicTicksPerBeat = 1;
-        setting.isLoop = true;
+        setting.isLoop = false;
     }
 });

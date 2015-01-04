@@ -3,18 +3,41 @@
 </head>
 
 <body>
-{{> test}}
+{{> main}}
 </body>
 
-<template name="test">
-    Loop? <input class="check" id="isLoop" type="checkbox" checked={{isLoop}} disabled={{isMetronomeStarted}}>
-    <form class="test">
-        <input type="submit" value={{pieceName}} disabled={{isMetronomeStarted}}>
-    </form>
+<template name="main">
+    <button id="start" disabled={{isMetronomeStarted}}>Start: {{pieceName}}</button>
     <button id="stop" disabled={{isMetronomeStopped}}>Stop</button>
     <br/><br/>
-    {{currentBeat}}
-    <br/>
-    {{#if isLoop}}Loop# {{loopCount}}{{/if}}
+    {{> status}}
+    <br/><br/>
+    {{> setting}}
 </template>
 
+<template name="status">
+    {{currentBeat}}
+    {{#if isLoop}}
+        <br/>
+        Loop# {{loopCount}}
+    {{/if}}
+</template>
+
+<template name="setting">
+    Classic ticks per minute <input type="number" min="1" step="1" id="classicTicksPerMinute" value={{classicTicksPerMinute}} disabled={{isMetronomeStarted}} />
+    <br/>
+    Classic ticks per beat <input type="number" min="1" step="1" id="classicTicksPerBeat" value={{classicTicksPerBeat}} disabled={{isMetronomeStarted}} />
+    <br/>
+    Loop? <input class="check" id="isLoop" type="checkbox" checked={{isLoop}} disabled={{isMetronomeStarted}}>
+    <br/>
+    Use entire piece? <input class="check" id="isUseEntirePiece" type="checkbox" checked={{isUseEntirePiece}} disabled={{isMetronomeStarted}}>
+    <br/>
+    Begin beat index <input type="number" min="1" step="1" id="beginBeatIndex" value={{beginBeatIndex}} disabled={{isMetronomeStarted}} />
+    <br/>
+    Begin measure index <input type="number" min="1" max={{measureAmount}} step="1" id="beginMeasureIndex" value={{beginMeasureIndex}} disabled={{isMetronomeStarted}} />
+    <br/>
+    End beat index <input type="number" min="1" step="1" id="endBeatIndex" value={{endBeatIndex}} disabled={{isMetronomeStarted}} />
+    <br/>
+    End measure index <input type="number" min="1" max={{measureAmount}} step="1" id="endMeasureIndex" value={{endMeasureIndex}} disabled={{isMetronomeStarted}} />
+
+</template>
