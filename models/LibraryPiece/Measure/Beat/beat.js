@@ -41,8 +41,8 @@ Beat.prototype = {
     resetTicks: function() {
         this._ticks = null;
     },
-    get tick_amount() {
-        return this._tick_amount = this._tick_amount || Mathjs_local.lcm(this.rightHand, this.leftHand);
+    get tickAmount() {
+        return this._tickAmount = this._tickAmount || Mathjs_local.lcm(this.rightHand, this.leftHand);
     },
     ticksForWaitSeconds: function(waitSeconds) {
         var ticks = this.rawTicksForWaitSeconds(waitSeconds);
@@ -58,7 +58,7 @@ Beat.prototype = {
         return new BeatFirstTick(this, waitSeconds);
     },
     remainingTicksForWaitSeconds: function(waitSeconds) {
-        return _.range(2, this.tick_amount).map(function(each) {
+        return _.range(2, this.tickAmount).map(function(each) {
             return new Tick(waitSeconds);
         });
     },
@@ -83,10 +83,10 @@ Beat.prototype = {
         return this._classicIndicies = this._classicIndicies || this.spacedIndiciesForAmount(this.metronomeSetting.classicTicksPerBeat);
     },
     spacedIndiciesForAmount: function(amount) {
-        var interval = this.tick_amount / amount;
+        var interval = this.tickAmount / amount;
         var index = 0;
         var indicies = [];
-        while (index < this.tick_amount) {
+        while (index < this.tickAmount) {
             indicies.push(index);
             index += interval;
         }

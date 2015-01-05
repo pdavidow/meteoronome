@@ -104,7 +104,7 @@ MetronomeSetting.prototype = {
     },
     ticksForBeat: function(beat) {
         check(beat, Beat);
-        var waitSeconds = this.classicTicksPerBeat / (beat.tick_amount * this.ticksPerSecond);
+        var waitSeconds = this.classicTicksPerBeat / (beat.tickAmount * this.ticksPerSecond);
         return beat.ticksForWaitSeconds(waitSeconds);
     },
     get reactiveDict() {

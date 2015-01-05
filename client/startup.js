@@ -3,6 +3,6 @@ if (Meteor.isClient) {
         Audio.initializeSound_onFinishedLoading(function() {
             console.log("audio finished loading");
         });
-        TickTest.test1();
+        SimpleTestModuleRunner.run();
     });
 }
