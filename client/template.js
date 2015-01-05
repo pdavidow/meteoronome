@@ -79,7 +79,7 @@ if (Meteor.isClient) {
             return testPiece.metronomeSetting.isUseEntirePiece;
         },
         measureAmount: function() {
-            return testPiece.measure.length;
+            return testPiece.measures.length;
         },
         beginBeatIndex: function() {
             return testPiece.metronomeSetting.beginBeatIndex;
