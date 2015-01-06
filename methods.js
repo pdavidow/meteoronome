@@ -21,13 +21,13 @@ Meteor.methods({
         check(pieceId, String);
         PieceCollection.remove(pieceId);
     },
-    libraryPieceInsert: function(piece) {
-        check(piece, LibraryPiece);
-        return LibraryPieceCollection.insert(piece.toJSONValue());
+    libraryPieceHolderInsert: function(libraryPieceHolder) {
+        check(libraryPieceHolder, {piece: LibraryPiece});
+        return LibraryPieceHolders.insert(libraryPieceHolder);
     },
-    libraryPieceRemove: function(pieceId) {
-        check(pieceId, String);
-        LibraryPieceCollection.remove(pieceId);
+    libraryPieceHolderRemove: function(libraryPieceHolderId) {
+        check(libraryPieceHolderId, String);
+        LibraryPieceHolders.remove(libraryPieceHolderId);
     }
 });
 

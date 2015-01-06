@@ -34,11 +34,11 @@ LibraryPieceFactorySpec = {
     _makePiece: function() {
         var piece = this.factoryPiece;
         console.log("make_piece piece", piece);
-        Meteor.call('libraryPieceInsert', piece, function(error, result){
+        Meteor.call('libraryPieceHolderInsert', piece, function(error, result){
             console.log("make_piece libraryPieceInsert error", error);
             console.log("make_piece libraryPieceInsert result", result);
         });
-        console.log("make_piece", LibraryPieceCollection.findOne({name: piece.name, composer: piece.composer}));
-        return LibraryPieceCollection.findOne({name: piece.name, composer: piece.composer});
+        console.log("make_piece", LibraryPieceHolders.findOne({name: piece.name, composer: piece.composer}));
+        return LibraryPieceHolders.findOne({name: piece.name, composer: piece.composer});
     }
 };
