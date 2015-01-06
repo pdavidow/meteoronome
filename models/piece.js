@@ -13,6 +13,7 @@ Piece.prototype.constructor = Piece;
 _.extend(Piece, {
     fromJSONValue: function(value) {
         var measures = EJSON.fromJSONValue(value.measures);
+
         var piece =  new Piece(
             EJSON.fromJSONValue(value.name),
             EJSON.fromJSONValue(value.composer),
@@ -20,6 +21,8 @@ _.extend(Piece, {
             EJSON.fromJSONValue(value.ownerId)
         );
         piece.addMeasures(measures);
+        piece.metronomeSetting = EJSON.fromJSONValue(value.metronomeSetting);
+
         return piece;
     }
 });

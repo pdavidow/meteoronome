@@ -14,12 +14,15 @@ LibraryPiece = function (name, composer, catalogReference) {
 
 LibraryPiece.fromJSONValue = function(value) {
     var measures = EJSON.fromJSONValue(value.measures);
+
     var libraryPiece =  new LibraryPiece(
         EJSON.fromJSONValue(value.name),
         EJSON.fromJSONValue(value.composer),
         EJSON.fromJSONValue(value.catalogReference)
     );
     libraryPiece.addMeasures(measures);
+    libraryPiece.metronomeSetting = EJSON.fromJSONValue(value.metronomeSetting);
+
     return libraryPiece;
 };
 
@@ -32,7 +35,8 @@ LibraryPiece.prototype = {
             name: EJSON.toJSONValue(this.name),
             composer: EJSON.toJSONValue(this.composer),
             catalogReference: EJSON.toJSONValue(this.catalogReference),
-            measures: EJSON.toJSONValue(this.measures)
+            measures: EJSON.toJSONValue(this.measures),
+            metronomeSetting: EJSON.toJSONValue(this.metronomeSetting)
         };
     },
     get measures() {
@@ -54,6 +58,10 @@ LibraryPiece.prototype = {
     },
     get metronomeSetting() {
         return this._metronomeSetting = this._metronomeSetting || new MetronomeSetting(this);
+    },
+    set metronomeSetting(setting) {
+        setting.piece = this;
+        this._metronomeSetting = setting;
     },
     get beats() {
         return _.flatten(this.measures.map(function(each) {

@@ -1,9 +1,41 @@
+var className = "MetronomeSetting";
+
 MetronomeSetting = function(piece) {
-    check(piece, LibraryPiece);
+    check(piece, Match.OneOf(undefined, LibraryPiece));
     this.piece = piece;
 };
 
+MetronomeSetting.fromJSONValue = function(value) {
+    var setting = new MetronomeSetting();
+
+    setting.classicTicksPerMinute = value.classicTicksPerMinute;
+    setting.classicTicksPerBeat = value.classicTicksPerBeat;
+    setting.isLoop = value.isLoop;
+    setting.isUseEntirePiece = value.isUseEntirePiece;
+    setting.beginMeasureIndex = value.beginMeasureIndex;
+    setting.endMeasureIndex = value.endMeasureIndex;
+    setting.beginBeatIndex = value.beginBeatIndex;
+    setting.endBeatIndex = value.endBeatIndex;
+
+    return setting;
+};
+
 MetronomeSetting.prototype = {
+    typeName: function() {
+        return className;
+    },
+    toJSONValue: function() {
+        return {
+            classicTicksPerMinute: this.classicTicksPerMinute,
+            classicTicksPerBeat: this.classicTicksPerBeat,
+            isLoop: this.isLoop,
+            isUseEntirePiece: this.isUseEntirePiece,
+            beginMeasureIndex: this.beginMeasureIndex,
+            endMeasureIndex: this.endMeasureIndex,
+            beginBeatIndex: this.beginBeatIndex,
+            endBeatIndex: this.endBeatIndex
+        };
+    },
     get classicTicksPerMinute() {
       return this._classicTicksPerMinute = this._classicTicksPerMinute || 30;
     },
@@ -111,3 +143,5 @@ MetronomeSetting.prototype = {
         return this._reactiveDict = this._reactiveDict || new ReactiveDict();
     }
 };
+
+EJSON.addType(className, MetronomeSetting.fromJSONValue);
