@@ -58,7 +58,7 @@ Beat.prototype = {
         return new BeatFirstTick(this, waitSeconds);
     },
     remainingTicksForWaitSeconds: function(waitSeconds) {
-        return _.range(2, this.tickAmount).map(function(each) {
+        return _.range(2, this.tickAmount + 1).map(function(each) {
             return new Tick(waitSeconds);
         });
     },
