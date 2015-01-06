@@ -22,8 +22,8 @@ LibraryPieceFactorySpec = {
     },
     applyMetronomeSetting: function(setting) {
     },
-    get piece() {
-        return this._piece = this._piece || this._makePiece();
+    get pieceHolder() {
+        return this._pieceHolder = this._pieceHolder || this.makePieceHolder();
     },
     get factoryPiece() {
         var libraryPiece = new LibraryPiece(this.myName, this.composer, this.catalogReference);
@@ -31,14 +31,14 @@ LibraryPieceFactorySpec = {
         this.applyMetronomeSetting(libraryPiece.metronomeSetting);
         return libraryPiece;
     },
-    _makePiece: function() {
+    makePieceHolder: function() {
         var piece = this.factoryPiece;
         console.log("make_piece piece", piece);
-        Meteor.call('libraryPieceInsert', piece, function(error, result){
+        Meteor.call('libraryPieceHolderInsert', {piece: piece}, function(error, result){
             console.log("make_piece libraryPieceInsert error", error);
             console.log("make_piece libraryPieceInsert result", result);
         });
-        console.log("make_piece", LibraryPieceCollection.findOne({name: piece.name, composer: piece.composer}));
-        return LibraryPieceCollection.findOne({name: piece.name, composer: piece.composer});
+        console.log("make_piece LibraryPieceHolders", LibraryPieceHolders.findOne({},{piece: {name: piece.name, composer: piece.composer}}));
+        return LibraryPieceHolders.findOne({},{piece: {name: piece.name, composer: piece.composer}});
     }
 };
