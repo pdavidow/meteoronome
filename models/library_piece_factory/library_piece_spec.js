@@ -1,8 +1,8 @@
 LibraryPieceFactorySpec = {
     get reset() {
-        if (this._piece) {
-            Meteor.call('libraryPieceRemove', this._piece._id, function (error, result) {});
-            this._piece = null;
+        if (this._pieceHolder) {
+            Meteor.call('libraryPieceHolderRemove', this._pieceHolder._id, function (error, result) {});
+            this._pieceHolder = null;
         }
     },
     get myName() { // Cannot redefine property: name
@@ -33,12 +33,7 @@ LibraryPieceFactorySpec = {
     },
     makePieceHolder: function() {
         var piece = this.factoryPiece;
-        console.log("make_piece piece", piece);
-        Meteor.call('libraryPieceHolderInsert', {piece: piece}, function(error, result){
-            console.log("make_piece libraryPieceInsert error", error);
-            console.log("make_piece libraryPieceInsert result", result);
-        });
-        console.log("make_piece LibraryPieceHolders", LibraryPieceHolders.findOne({},{piece: {name: piece.name, composer: piece.composer}}));
-        return LibraryPieceHolders.findOne({},{piece: {name: piece.name, composer: piece.composer}});
-    }
+        LibraryPieceHolderManager.insertLibraryPiece(piece);
+        return LibraryPieceHolderManager.findHolderForNameComposer(piece.name, piece.composer);
+     }
 };

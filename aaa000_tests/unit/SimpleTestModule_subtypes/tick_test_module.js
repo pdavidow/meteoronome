@@ -9,6 +9,12 @@ _.extend(TickTestModule, {
         p1.addMeasures([m1]);
         var setting = p1.metronomeSetting;
         setting.classicTicksPerBeat = 1;
+
+        LibraryPieceHolderManager.insertLibraryPiece(p1);
+        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
+        p1 = holder.piece;
+        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
 
@@ -26,6 +32,12 @@ _.extend(TickTestModule, {
         p1.addMeasures([m1]);
         var setting = p1.metronomeSetting;
         setting.classicTicksPerBeat = 3;
+
+        LibraryPieceHolderManager.insertLibraryPiece(p1);
+        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
+        p1 = holder.piece;
+        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
 
@@ -42,6 +54,12 @@ _.extend(TickTestModule, {
         m1.addBeats([new Beat(3,4)]);
         p1.addMeasures([m1]);
         var setting = p1.metronomeSetting;
+
+        LibraryPieceHolderManager.insertLibraryPiece(p1);
+        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
+        p1 = holder.piece;
+        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+
         setting.classicTicksPerBeat = 4;
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
