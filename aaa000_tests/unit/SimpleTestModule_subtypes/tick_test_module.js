@@ -17,11 +17,11 @@ _.extend(TickTestModule, {
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
 
-        console.log("ASSERT: 12+1 = ticks.length", 12+1 == ticks.length);
-        console.log("ASSERT: [0] isClassic}))", _.isEqual([0], range.filter(function(each){return ticks[each].isClassic})));
-        console.log("ASSERT: [0,4,8] isRightHand}))", _.isEqual([0,4,8], range.filter(function(each){return ticks[each].isRightHand})));
-        console.log("ASSERT: [0,3,6,9] isLeftHand}))", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isLeftHand})));
-        console.log("ASSERT: [1,2,5,7,10,11] isBackground}))", _.isEqual([1,2,5,7,10,11], range.filter(function(each){return ticks[each].isBackground})));
+        console.log("ASSERT: a", 12+1 == ticks.length);
+        console.log("ASSERT: b", _.isEqual([0], range.filter(function(each){return ticks[each].isClassic})));
+        console.log("ASSERT: c", _.isEqual([0,4,8], range.filter(function(each){return ticks[each].isRightHand})));
+        console.log("ASSERT: d", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isLeftHand})));
+        console.log("ASSERT: e", _.isEqual([1,2,5,7,10,11], range.filter(function(each){return ticks[each].isBackground})));
     },
     test1: function () {
         console.log("TickTest 1");
@@ -39,11 +39,11 @@ _.extend(TickTestModule, {
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
 
-        console.log("ASSERT: 12+1 = ticks.length", 12+1 == ticks.length);
-        console.log("ASSERT: [0,4,8] isClassic}))", _.isEqual([0,4,8], range.filter(function(each){return ticks[each].isClassic})));
-        console.log("ASSERT: [0,4,8] isRightHand}))", _.isEqual([0,4,8], range.filter(function(each){return ticks[each].isRightHand})));
-        console.log("ASSERT: [0,3,6,9] isLeftHand}))", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isLeftHand})));
-        console.log("ASSERT: [1,2,5,7,10,11] isBackground}))", _.isEqual([1,2,5,7,10,11], range.filter(function(each){return ticks[each].isBackground})));
+        console.log("ASSERT: a", 12+1 == ticks.length);
+        console.log("ASSERT: b", _.isEqual([0,4,8], range.filter(function(each){return ticks[each].isClassic})));
+        console.log("ASSERT: c", _.isEqual([0,4,8], range.filter(function(each){return ticks[each].isRightHand})));
+        console.log("ASSERT: d", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isLeftHand})));
+        console.log("ASSERT: e", _.isEqual([1,2,5,7,10,11], range.filter(function(each){return ticks[each].isBackground})));
     },
     test2: function () {
         console.log("TickTest 2");
@@ -61,11 +61,11 @@ _.extend(TickTestModule, {
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
 
-        console.log("ASSERT: 12+1 = ticks.length", 12+1 == ticks.length);
-        console.log("ASSERT: [0,3,6,9] isClassic}))", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isClassic})));
-        console.log("ASSERT: [0,4,8] isRightHand}))", _.isEqual([0,4,8], range.filter(function(each){return ticks[each].isRightHand})));
-        console.log("ASSERT: [0,3,6,9] isLeftHand}))", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isLeftHand})));
-        console.log("ASSERT: [1,2,5,7,10,11] isBackground}))", _.isEqual([1,2,5,7,10,11], range.filter(function(each){return ticks[each].isBackground})));
+        console.log("ASSERT: a", 12+1 == ticks.length);
+        console.log("ASSERT: b", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isClassic})));
+        console.log("ASSERT: c", _.isEqual([0,4,8], range.filter(function(each){return ticks[each].isRightHand})));
+        console.log("ASSERT: d", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isLeftHand})));
+        console.log("ASSERT: e", _.isEqual([1,2,5,7,10,11], range.filter(function(each){return ticks[each].isBackground})));
     }
 });
 
