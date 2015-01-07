@@ -4,6 +4,6 @@ if (Meteor.isClient) {
             console.log("audio finished loading");
         });
         SimpleTestModuleRunner.run();
-        console.log("startup", LibraryPieceHolderManager.pieceFromHolder(LibraryPieceSpec_Test.pieceHolder));
+        console.log("startup", LibraryPieceSpec_Test.persistedPiece);
     });
 }

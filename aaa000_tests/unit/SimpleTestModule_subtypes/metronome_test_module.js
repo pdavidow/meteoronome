@@ -15,10 +15,9 @@ _.extend(MetronomeTestModule, {
             p1.addMeasures([m1]);
         });
 
-        LibraryPieceHolderManager.insertLibraryPiece(p1);
-        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
-        p1 = holder.piece;
-        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
 
         console.log("ASSERT: 240+1 == ticks.length", 240+1 == p1.metronome.ticks.length);
     },
@@ -32,10 +31,9 @@ _.extend(MetronomeTestModule, {
         ]);
         p1.addMeasures([m1]);
 
-        LibraryPieceHolderManager.insertLibraryPiece(p1);
-        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
-        p1 = holder.piece;
-        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
 
         console.log("ASSERT: 24 ticks in beat 0", 24 == p1.measures[0].beats[0].tickAmount);
         console.log("ASSERT: 33 ticks in beat 0", 33 == p1.measures[0].beats[1].tickAmount);
@@ -53,10 +51,9 @@ _.extend(MetronomeTestModule, {
         setting.classicTicksPerMinute = 60;
         setting.classicTicksPerBeat = 3;
 
-        LibraryPieceHolderManager.insertLibraryPiece(p1);
-        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
-        p1 = holder.piece;
-        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
 
         var ticks0 = p1.metronome.beats[0].ticks;
         var ticks1 = p1.metronome.beats[1].ticks;

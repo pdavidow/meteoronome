@@ -83,6 +83,13 @@ LibraryPiece.prototype = {
         this.beats.forEach(function(each) {
             each.loadDisplayCaches();
         });
+    },
+    get holderId() {
+        return this._holderId;
+    },
+    set holderId(holderId) {
+        check(holderId, String);
+        this._holderId = holderId;
     }
 
     /*,

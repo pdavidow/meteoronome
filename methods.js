@@ -22,7 +22,7 @@ Meteor.methods({
         PieceCollection.remove(pieceId);
     },
     libraryPieceHolderInsert: function(libraryPieceHolder) {
-        LibraryPieceHolderManager.checkHolder(libraryPieceHolder);
+        LibraryPieceManager.checkHolder(libraryPieceHolder);
         return LibraryPieceHolders.insert(libraryPieceHolder);
     },
     libraryPieceHolderRemove: function(libraryPieceHolderId) {

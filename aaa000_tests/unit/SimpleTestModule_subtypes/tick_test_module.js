@@ -10,10 +10,9 @@ _.extend(TickTestModule, {
         var setting = p1.metronomeSetting;
         setting.classicTicksPerBeat = 1;
 
-        LibraryPieceHolderManager.insertLibraryPiece(p1);
-        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
-        p1 = holder.piece;
-        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
 
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
@@ -33,10 +32,9 @@ _.extend(TickTestModule, {
         var setting = p1.metronomeSetting;
         setting.classicTicksPerBeat = 3;
 
-        LibraryPieceHolderManager.insertLibraryPiece(p1);
-        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
-        p1 = holder.piece;
-        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
 
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
@@ -56,10 +54,9 @@ _.extend(TickTestModule, {
         var setting = p1.metronomeSetting;
         setting.classicTicksPerBeat = 4;
 
-        LibraryPieceHolderManager.insertLibraryPiece(p1);
-        var holder = LibraryPieceHolderManager.findHolderForNameComposer('n1','c1');
-        p1 = holder.piece;
-        LibraryPieceHolderManager.removeHolderOfId(holder._id);
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
 
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
