@@ -1,4 +1,19 @@
 LibraryPieceManager = (function() {
+    // I exist because Meteor does not support EJSON custom types at the top level.
+    // See https://github.com/meteor/meteor/issues/3310#issuecomment-68743074
+    // I serve to encapsulate the workaround.
+
+    Meteor.methods({
+        libraryPieceHolderInsert: function(libraryPieceHolder) {
+            _checkHolder(libraryPieceHolder);
+            return LibraryPieceHolders.insert(libraryPieceHolder);
+        },
+        libraryPieceHolderRemove: function(libraryPieceHolderId) {
+            check(libraryPieceHolderId, String);
+            LibraryPieceHolders.remove(libraryPieceHolderId);
+        }
+    });
+
     _checkHolder = function(libraryPieceHolder) {
         check(libraryPieceHolder, {piece: LibraryPiece});
     };
@@ -32,10 +47,10 @@ LibraryPieceManager = (function() {
     _removeHolderOfId = function(holderId) {
         Meteor.call('libraryPieceHolderRemove', holderId, function(error, result){});
     };
+
     return {
-        checkHolder: _checkHolder,
         insertLibraryPiece: _insertLibraryPiece,
-        findLibraryPieceForNameComposer: _findLibraryPieceForNameComposer,
-        removeLibraryPiece: _removeLibraryPiece
+        removeLibraryPiece: _removeLibraryPiece,
+        findLibraryPieceForNameComposer: _findLibraryPieceForNameComposer
     }
 })()

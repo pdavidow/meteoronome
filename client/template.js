@@ -1,5 +1,5 @@
 if (Meteor.isClient) {
-    var testPiece = LibraryPieceSpec_Test.factoryPiece;
+    var testPiece = LibraryPieceSpec_Sample.factoryPiece;
 /* //////////// todo: uncomment when move to latest release
     Template.registerHelper("isMetronomeStarted", function() {
         return testPiece.metronome.isStarted;

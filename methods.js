@@ -20,14 +20,6 @@ Meteor.methods({
     pieceRemove: function(pieceId) {
         check(pieceId, String);
         PieceCollection.remove(pieceId);
-    },
-    libraryPieceHolderInsert: function(libraryPieceHolder) {
-        LibraryPieceManager.checkHolder(libraryPieceHolder);
-        return LibraryPieceHolders.insert(libraryPieceHolder);
-    },
-    libraryPieceHolderRemove: function(libraryPieceHolderId) {
-        check(libraryPieceHolderId, String);
-        LibraryPieceHolders.remove(libraryPieceHolderId);
     }
 });
 
