@@ -1,5 +1,3 @@
-// unnecessarily complicated to test programming skill :)
-
 SimpleTestModuleRunner = (function() {
     var _testModules = function() {
         return [ // AbstractSimpleTestModule subtypes

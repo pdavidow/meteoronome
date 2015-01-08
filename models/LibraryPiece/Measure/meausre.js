@@ -4,9 +4,10 @@ Measure = function() {
 };
 
 Measure.fromJSONValue = function(value) {
-    var beats = EJSON.fromJSONValue(value.beats);
     var measure = new Measure();
+    var beats = EJSON.fromJSONValue(value.beats);
     measure.addBeats(beats);
+
     return measure;
 };
 

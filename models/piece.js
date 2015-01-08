@@ -12,14 +12,13 @@ Piece.prototype.constructor = Piece;
 
 _.extend(Piece, {
     fromJSONValue: function(value) {
-        var measures = EJSON.fromJSONValue(value.measures);
-
         var piece =  new Piece(
-            EJSON.fromJSONValue(value.name),
-            EJSON.fromJSONValue(value.composer),
-            EJSON.fromJSONValue(value.catalogReference),
-            EJSON.fromJSONValue(value.ownerId)
+            value.name,
+            value.composer,
+            value.catalogReference,
+            value.ownerId
         );
+        var measures = EJSON.fromJSONValue(value.measures);
         piece.addMeasures(measures);
         piece.metronomeSetting = EJSON.fromJSONValue(value.metronomeSetting);
 
@@ -34,7 +33,7 @@ _.extend(Piece.prototype, {
     toJSONValue: function() {
         var value = LibraryPiece.prototype.toJSONValue.call(this); // super ES6
         return _.extend(value, {
-            ownerId: EJSON.toJSONValue(this.ownerId)
+            ownerId: this.ownerId
         });
     }/*,
     displayString: function () {
