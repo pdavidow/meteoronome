@@ -1,14 +1,19 @@
 SimpleTestModuleRunner = (function() {
     var _testModules = function() {
-        return [ // AbstractSimpleTestModule subtypes
-            TickTestModule,
-            MetronomeTestModule
-        ];
+        return {
+            TickTestModule: TickTestModule,
+            MetronomeTestModule: MetronomeTestModule
+        };
     };
     var _run = function() {
-        _testModules().forEach(function(each) {
-            each.run();
-        })
+        var moduleDict = _testModules();
+        for (moduleKey in moduleDict) {
+            if (moduleDict.hasOwnProperty(moduleKey)) {
+                var module = moduleDict[moduleKey];
+                console.log("==============", moduleKey);
+                module.run();
+            }
+        }
     };
 
     return {

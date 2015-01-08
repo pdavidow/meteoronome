@@ -1,8 +1,7 @@
 MetronomeTestModule = Object.create(AbstractSimpleTestModule);
 
 _.extend(MetronomeTestModule, {
-    test0: function () {
-        console.log("MetronomeTest 0");
+    test_0: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1;
         var setting = p1.metronomeSetting;
@@ -21,8 +20,7 @@ _.extend(MetronomeTestModule, {
 
         console.log("ASSERT: a", 240+1 == p1.metronome.ticks.length);
     },
-    test1: function () {
-        console.log("MetronomeTest 1");
+    test_1: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -38,8 +36,7 @@ _.extend(MetronomeTestModule, {
         console.log("ASSERT: a", 24 == p1.measures[0].beats[0].tickAmount);
         console.log("ASSERT: b", 33 == p1.measures[0].beats[1].tickAmount);
     },
-    test2: function () {
-        console.log("MetronomeTest 2");
+    test_2: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -72,8 +69,7 @@ _.extend(MetronomeTestModule, {
         var ticks1Time = ticks1.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: e", ticks0Time == ticks1Time);
     },
-    test3: function () {
-        console.log("MetronomeTest 3");
+    test_3: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -96,8 +92,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 1.0);
     },
-    test4: function () {
-        console.log("MetronomeTest 4");
+    test_4: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -120,8 +115,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 1.0);
     },
-    test5: function () {
-        console.log("MetronomeTest 5");
+    test_5: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -144,8 +138,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 6.0);
     },
-    test6: function () {
-        console.log("MetronomeTest 6");
+    test_6: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -168,8 +161,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 0.5);
     },
-    test7: function () {
-        console.log("MetronomeTest 7");
+    test_7: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -192,8 +184,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 0.5);
     },
-    test8: function () {
-        console.log("MetronomeTest 8");
+    test_8: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -216,8 +207,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 12.0);
     },
-    test9: function () {
-        console.log("MetronomeTest 9");
+    test_9: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -242,8 +232,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 12.0);
     },
-    test10: function () {
-        console.log("MetronomeTest 10");
+    test_10: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -272,8 +261,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 12.0);
     },
-    test11: function () {
-        console.log("MetronomeTest 11");
+    test_11: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -295,8 +283,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 1.0);
     },
-    test12: function () {
-        console.log("MetronomeTest 12");
+    test_12: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -318,8 +305,7 @@ _.extend(MetronomeTestModule, {
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 3.0);
     },
-    test12: function () {
-        console.log("MetronomeTest 12");
+    test_13: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([
@@ -341,5 +327,171 @@ _.extend(MetronomeTestModule, {
 
         var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
         console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 6.0);
+    },
+    test_14a: function () {
+        var p1 = new LibraryPiece('n1','c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(3,4),
+            new Beat(7,4)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerMinute = 20;
+        setting.classicTicksPerBeat = 1;
+
+        setting.isUseEntirePiece = false;
+        setting.beginMeasureIndex = 0;
+        setting.beginBeatIndex = 0;
+        setting.endMeasureIndex = 0;
+        setting.endBeatIndex = 1;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+
+        var ticks = p1.metronome.ticks;
+        console.log("ASSERT: a", 40+1 == ticks.length);
+
+        var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
+        console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 6.0);
+    },
+    test_14b: function () {
+        var p1 = new LibraryPiece('n1','c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(3,4),
+            new Beat(7,4)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerMinute = 20;
+        setting.classicTicksPerBeat = 1;
+
+        setting.isUseEntirePiece = false;
+        setting.beginMeasureIndex = 0;
+        setting.beginBeatIndex = 1;
+        setting.endMeasureIndex = 0;
+        setting.endBeatIndex = 1;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+
+        var ticks = p1.metronome.ticks;
+        console.log("ASSERT: a", 28+1 == ticks.length);
+
+        var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
+        console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 3.0);
+    },
+    test_15a: function () {
+        var p1 = new LibraryPiece('n1', 'c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(3, 4),
+            new Beat(7, 4),
+            new Beat(3, 4),
+            new Beat(7, 4)
+        ]);
+        p1.addMeasures([m1]);
+        m1 = new Measure();
+        m1.addBeats([
+            new Beat(3, 4),
+            new Beat(7, 4),
+            new Beat(3, 4),
+            new Beat(7, 4)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerMinute = 20;
+        setting.classicTicksPerBeat = 1;
+
+        setting.isUseEntirePiece = false;
+        setting.beginMeasureIndex = 0;
+        setting.beginBeatIndex = 0;
+        setting.endMeasureIndex = 1;
+        setting.endBeatIndex = 3;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+
+        var ticks = p1.metronome.ticks;
+        console.log("ASSERT: a", 160+1 == ticks.length);
+    },
+    test_15b: function () {
+        var p1 = new LibraryPiece('n1', 'c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(3, 4),
+            new Beat(7, 4),
+            new Beat(3, 4),
+            new Beat(7, 4)
+        ]);
+        p1.addMeasures([m1]);
+        m1 = new Measure();
+        m1.addBeats([
+            new Beat(3, 4),
+            new Beat(7, 4),
+            new Beat(3, 4),
+            new Beat(7, 4)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerMinute = 20;
+        setting.classicTicksPerBeat = 1;
+
+        setting.isUseEntirePiece = false;
+        setting.beginMeasureIndex = 1;
+        setting.beginBeatIndex = 1;
+        setting.endMeasureIndex = 1;
+        setting.endBeatIndex = 3;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+
+        var ticks = p1.metronome.ticks;
+        console.log("ASSERT: a", 68+1 == ticks.length);
+
+        var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
+        console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 9.0);
+    },
+    test_16: function () {
+        var p1 = new LibraryPiece('n1', 'c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(1, 1),
+            new Beat(1, 1)
+        ]);
+        p1.addMeasures([m1]);
+        m1 = new Measure();
+        m1.addBeats([
+            new Beat(1, 1),
+            new Beat(1, 1)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerMinute = 60;
+        setting.classicTicksPerBeat = 1;
+
+        setting.isUseEntirePiece = false;
+        setting.beginMeasureIndex = 0;
+        setting.beginBeatIndex = 0;
+        setting.endMeasureIndex = 0;
+        setting.endBeatIndex = 0;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+
+        p1.metronome.ticks.pop();
+        var ticks = p1.metronome.ticks;
+        var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
+        console.log("ASSERT: a", Math.round(ticksTime*100)/100 == 1.0);
+        console.log("ASSERT: b", _.first(ticks).beat.measure == p1.measures[0]);
+        console.log("ASSERT: c", _.first(ticks).beat == p1.measures[0].beats[0]);
+        console.log("ASSERT: d", _.last(ticks).beat.measure == p1.measures[0]);
+        console.log("ASSERT: e", _.last(ticks).beat == p1.measures[0].beats[0]);
     }
 });

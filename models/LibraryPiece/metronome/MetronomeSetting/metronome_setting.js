@@ -115,10 +115,22 @@ MetronomeSetting.prototype = {
         });
     },
     isInterestedInBeat: function(beat) {
-        return true; // todo
         if (this.isUseEntirePiece) {return true};
 
-        //var measureIndex = beat.measureIndex;
+        var measureIndex = beat.measure.index;
+        if (!(this.beginMeasureIndex <= measureIndex)) {return false};
+        if (!(measureIndex <= this.endMeasureIndex)) {return false};
+        if (!((measureIndex == this.beginMeasureIndex) || (measureIndex == this.endMeasureIndex))) {return true};
+
+        var beatIndex = beat.index;
+        if (measureIndex == this.beginMeasureIndex) {
+            if (!(this.beginBeatIndex <= beatIndex)) {return false};
+        }
+        if (measureIndex == this.endMeasureIndex) {
+            if (!(beatIndex <= this.endBeatIndex)) {return false};
+        }
+
+        return true;
     },
     startMetronome: function() {
         this.piece.reset();

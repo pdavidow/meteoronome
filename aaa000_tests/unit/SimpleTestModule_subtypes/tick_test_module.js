@@ -1,8 +1,7 @@
 TickTestModule = Object.create(AbstractSimpleTestModule);
 
 _.extend(TickTestModule, {
-    test0: function () {
-        console.log("TickTest 0");
+    test_0: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([new Beat(3,4)]);
@@ -23,8 +22,7 @@ _.extend(TickTestModule, {
         console.log("ASSERT: d", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isLeftHand})));
         console.log("ASSERT: e", _.isEqual([1,2,5,7,10,11], range.filter(function(each){return ticks[each].isBackground})));
     },
-    test1: function () {
-        console.log("TickTest 1");
+    test_1: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([new Beat(3,4)]);
@@ -45,8 +43,7 @@ _.extend(TickTestModule, {
         console.log("ASSERT: d", _.isEqual([0,3,6,9], range.filter(function(each){return ticks[each].isLeftHand})));
         console.log("ASSERT: e", _.isEqual([1,2,5,7,10,11], range.filter(function(each){return ticks[each].isBackground})));
     },
-    test2: function () {
-        console.log("TickTest 2");
+    test_2: function () {
         var p1 = new LibraryPiece('n1','c1');
         var m1 = new Measure();
         m1.addBeats([new Beat(3,4)]);
