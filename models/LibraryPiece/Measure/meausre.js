@@ -45,7 +45,7 @@ Measure.prototype = {
         });
     },
     get displayIndex() {
-        return this.index + Constants.displayIndexOffset;
+        return IndexAdaptor.shiftUp(this.index);
     },
     get index() {
         return this.piece.measures.indexOf(this);

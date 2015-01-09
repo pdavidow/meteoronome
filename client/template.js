@@ -82,16 +82,20 @@ if (Meteor.isClient) {
             return testPiece.measures.length;
         },
         beginBeatIndex: function() {
-            return testPiece.metronomeSetting.beginBeatIndex;
+            return IndexAdaptor.shiftUp(testPiece.metronomeSetting.beginBeatIndex);
         },
         endBeatIndex: function() {
-            return testPiece.metronomeSetting.endBeatIndex;
+            return IndexAdaptor.shiftUp(testPiece.metronomeSetting.endBeatIndex);
         },
         beginMeasureIndex: function() {
-            return testPiece.metronomeSetting.beginMeasureIndex;
+            return IndexAdaptor.shiftUp(testPiece.metronomeSetting.beginMeasureIndex);
         },
         endMeasureIndex: function() {
-            return testPiece.metronomeSetting.endMeasureIndex;
+            return IndexAdaptor.shiftUp(testPiece.metronomeSetting.endMeasureIndex);
+        },
+        isDisableIndexField: function() {
+            //return Template.instance().isMetronomeStarted() || Template.instance().isUseEntirePiece; // todo: once at latest release, see if this works
+            return testPiece.metronome.isStarted || testPiece.metronomeSetting.isUseEntirePiece;
         }
     });
     Template.setting.events({
@@ -108,6 +112,22 @@ if (Meteor.isClient) {
         },
         "click .check#isUseEntirePiece": function () {
             testPiece.metronomeSetting.toggleIsUseEntirePiece();
+        },
+        "change #beginBeatIndex": function () {
+            var int = parseInt($('#beginBeatIndex').val(), 10);
+            testPiece.metronomeSetting.beginBeatIndex = IndexAdaptor.shiftDown(int);
+        },
+        "change #beginMeasureIndex": function () {
+            var int = parseInt($('#beginMeasureIndex').val(), 10);
+            testPiece.metronomeSetting.beginMeasureIndex = IndexAdaptor.shiftDown(int);
+        },
+        "change #endBeatIndex": function () {
+            var int = parseInt($('#endBeatIndex').val(), 10);
+            testPiece.metronomeSetting.endBeatIndex = IndexAdaptor.shiftDown(int);
+        },
+        "change #endMeasureIndex": function () {
+            var int = parseInt($('#endMeasureIndex').val(), 10);
+            testPiece.metronomeSetting.endMeasureIndex = IndexAdaptor.shiftDown(int);
         }
     });
 }

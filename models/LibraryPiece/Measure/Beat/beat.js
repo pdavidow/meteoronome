@@ -108,7 +108,7 @@ Beat.prototype = {
         return this.measure.displayIndex;
     },
     get displayIndex() {
-        return this.index + Constants.displayIndexOffset;
+        return IndexAdaptor.shiftUp(this.index);
     },
     get index() {
         return this.measure.beats.indexOf(this);
