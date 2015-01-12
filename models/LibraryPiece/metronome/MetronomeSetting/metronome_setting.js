@@ -37,7 +37,7 @@ MetronomeSetting.prototype = {
         };
     },
     get classicTicksPerMinute() {
-      return this._classicTicksPerMinute = this._classicTicksPerMinute || 30;
+        return this._classicTicksPerMinute = this._classicTicksPerMinute || 30;
     },
     set classicTicksPerMinute(value) {
         check(value, Matcher.positiveInteger);
@@ -148,8 +148,30 @@ MetronomeSetting.prototype = {
     },
     ticksForBeat: function(beat) {
         check(beat, Beat);
+        this.validateClassicTicksPerBeat(beat);
         var waitSeconds = this.classicTicksPerBeat / (beat.tickAmount * this.ticksPerSecond);
         return beat.ticksForWaitSeconds(waitSeconds);
+    },
+    validateClassicTicksPerBeat: function(beat) {
+        if ((beat.tickAmount % this.classicTicksPerBeat) != 0) {
+            throw new MetronomeSetting_ClassicTicksPerBeat_Exception(this.classicTicksPerBeat, beat)
+        };
+    },
+    validate: function() {
+        this.validateForPiece();
+        this.validateCrossIndexIntegrity();
+    },
+    validateForPiece: function() {
+        if (this.isUseEntirePiece) {return};
+        if (this.beginMeasureIndex >= this.piece.measures.length) {throw new MetronomeSetting_Exception("Metronome-Setting begin-measure-index must not exceed number of measures for piece")};
+        if (this.beginBeatIndex >= this.piece.measures[this.beginMeasureIndex].beats.length) {throw new MetronomeSetting_Exception("Metronome-Setting begin-beat-index must not exceed number of beats in begin-measure")};
+        if (this.endMeasureIndex >= this.piece.measures.length) {throw new MetronomeSetting_Exception("Metronome-Setting end-measure-index must not exceed number of measures for piece")};
+        if (this.endBeatIndex >= this.piece.measures[this.endMeasureIndex].beats.length) {throw new MetronomeSetting_Exception("Metronome-Setting end-beat-index must not exceed number of beats in end-measure")};
+    },
+    validateCrossIndexIntegrity: function() {
+        if (this.isUseEntirePiece) {return};
+        if (this.beginMeasureIndex > this.endMeasureIndex) {throw new MetronomeSetting_Exception("Begin-measure-index must be <= to end-measure-index")};
+        if ((this.beginMeasureIndex == this.endMeasureIndex) && (this.beginBeatIndex > this.endBeatIndex)) {throw new MetronomeSetting_Exception("Begin-beat-index must be <= end-beat-index in same measure")};
     },
     get reactiveDict() {
         return this._reactiveDict = this._reactiveDict || new ReactiveDict();

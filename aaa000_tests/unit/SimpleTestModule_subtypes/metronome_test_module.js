@@ -17,6 +17,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         console.log("ASSERT: a", 240+1 == p1.metronome.ticks.length);
     },
@@ -32,6 +33,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         console.log("ASSERT: a", 24 == p1.measures[0].beats[0].tickAmount);
         console.log("ASSERT: b", 33 == p1.measures[0].beats[1].tickAmount);
@@ -52,6 +54,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks0 = p1.metronome.beats[0].ticks;
         var ticks1 = p1.metronome.beats[1].ticks;
@@ -84,6 +87,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.beats[0].ticks;
         console.log("ASSERT: a1", 24 == ticks.length);
@@ -107,6 +111,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.beats[0].ticks;
         console.log("ASSERT: a1", 33 == ticks.length);
@@ -130,6 +135,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.beats[0].ticks;
         console.log("ASSERT: a1", 33 == ticks.length);
@@ -153,6 +159,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.beats[0].ticks;
         console.log("ASSERT: a1", 12 == ticks.length);
@@ -176,6 +183,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.beats[0].ticks;
         console.log("ASSERT: a1", 15 == ticks.length);
@@ -200,6 +208,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 45+1 == ticks.length);
@@ -225,6 +234,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 81+1 == ticks.length);
@@ -254,6 +264,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 99+1 == ticks.length);
@@ -276,6 +287,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 3+1 == ticks.length);
@@ -298,6 +310,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 12+1 == ticks.length);
@@ -321,6 +334,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 40+1 == ticks.length);
@@ -349,6 +363,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 40+1 == ticks.length);
@@ -377,6 +392,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 28+1 == ticks.length);
@@ -415,6 +431,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 160+1 == ticks.length);
@@ -450,6 +467,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         console.log("ASSERT: a", 68+1 == ticks.length);
@@ -484,6 +502,7 @@ _.extend(MetronomeTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         p1.metronome.ticks.pop();
         var ticks = p1.metronome.ticks;
@@ -493,5 +512,153 @@ _.extend(MetronomeTestModule, {
         console.log("ASSERT: c", _.first(ticks).beat == p1.measures[0].beats[0]);
         console.log("ASSERT: d", _.last(ticks).beat.measure == p1.measures[0]);
         console.log("ASSERT: e", _.last(ticks).beat == p1.measures[0].beats[0]);
+    },
+    test_17a: function () {
+        var p1 = new LibraryPiece('n1', 'c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(1, 1),
+            new Beat(1, 1)
+        ]);
+        p1.addMeasures([m1]);
+        m1 = new Measure();
+        m1.addBeats([
+            new Beat(1, 1),
+            new Beat(1, 1)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerMinute = 60;
+        setting.classicTicksPerBeat = 1;
+
+        setting.isUseEntirePiece = false;
+        setting.beginMeasureIndex = 0;
+        setting.beginBeatIndex = 1;
+        setting.endMeasureIndex = 1;
+        setting.endBeatIndex = 0;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
+
+        p1.metronome.ticks.pop();
+        var ticks = p1.metronome.ticks;
+        console.log("ASSERT: a", 2 == ticks.length);
+        var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
+        console.log("ASSERT: b", Math.round(ticksTime*100)/100 == 2.0);
+        console.log("ASSERT: c", _.first(ticks).beat.measure == p1.measures[0]);
+        console.log("ASSERT: d", _.first(ticks).beat == p1.measures[0].beats[1]);
+        console.log("ASSERT: e", _.last(ticks).beat.measure == p1.measures[1]);
+        console.log("ASSERT: f", _.last(ticks).beat == p1.measures[1].beats[0]);
+    },
+    test_17b: function () {
+        var p1 = new LibraryPiece('n1', 'c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(1, 1),
+            new Beat(1, 1)
+        ]);
+        p1.addMeasures([m1]);
+        m1 = new Measure();
+        m1.addBeats([
+            new Beat(1, 1),
+            new Beat(1, 1)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerMinute = 60;
+        setting.classicTicksPerBeat = 1;
+
+        setting.isUseEntirePiece = false;
+        setting.beginMeasureIndex = 0;
+        setting.beginBeatIndex = 1;
+        setting.endMeasureIndex = 1;
+        setting.endBeatIndex = 1;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
+
+        p1.metronome.ticks.pop();
+        var ticks = p1.metronome.ticks;
+        var ticksTime = ticks.map(function(each) {return each.waitSeconds}).reduce(function(prior,current) {return prior + current});
+        console.log("ASSERT: a", Math.round(ticksTime*100)/100 == 3.0);
+        console.log("ASSERT: b", _.first(ticks).beat.measure == p1.measures[0]);
+        console.log("ASSERT: c", _.first(ticks).beat == p1.measures[0].beats[1]);
+        console.log("ASSERT: d", _.last(ticks).beat.measure == p1.measures[1]);
+        console.log("ASSERT: e", _.last(ticks).beat == p1.measures[1].beats[1]);
+    },
+    test_18: function () {
+        var p1 = new LibraryPiece('n1', 'c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(1, 3)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerBeat = 2;
+        setting.isUseEntirePiece = true;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+
+        try {p1.metronome.validate()}
+        catch (e) {
+            console.log("ASSERT: a", e.constructor == MetronomeSetting_ClassicTicksPerBeat_Exception);
+            console.log("ASSERT: b", e.displayMessage == "Invalid classic-ticks-per-beat: Beat (Beat 1 {1,3}, Measure 1) has 3 ticks, which is not cleanly divisible by classic-ticks-per-beat of 2");
+        }
+    },
+    test_19: function () {
+        var p1 = new LibraryPiece('n1', 'c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(2, 3),
+            new Beat(2, 3)
+        ]);
+        p1.addMeasures([m1]);
+        m1 = new Measure();
+        m1.addBeats([
+            new Beat(2, 3),
+            new Beat(5, 3)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerBeat = 2;
+        setting.isUseEntirePiece = true;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+
+        try {p1.metronome.validate()}
+        catch (e) {
+            console.log("ASSERT: a", e.constructor == MetronomeSetting_ClassicTicksPerBeat_Exception);
+            console.log("ASSERT: b", e.displayMessage == "Invalid classic-ticks-per-beat: Beat (Beat 2 {5,3}, Measure 2) has 15 ticks, which is not cleanly divisible by classic-ticks-per-beat of 2");
+        }
+    },
+    test_20: function () {
+        var p1 = new LibraryPiece('n1', 'c1');
+        var m1 = new Measure();
+        m1.addBeats([
+            new Beat(2, 2),
+            new Beat(1, 1)
+        ]);
+        p1.addMeasures([m1]);
+        var setting = p1.metronomeSetting;
+        setting.classicTicksPerBeat = 2;
+        setting.isUseEntirePiece = true;
+
+        LibraryPieceManager.insertLibraryPiece(p1);
+        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        LibraryPieceManager.removeLibraryPiece(p1);
+
+        try {p1.metronome.validate()}
+        catch (e) {
+            console.log("ASSERT: a", e.constructor == MetronomeSetting_ClassicTicksPerBeat_Exception);
+            console.log("ASSERT: b", e.displayMessage == "Invalid classic-ticks-per-beat: Beat (Beat 2 {1,1}, Measure 1) has 1 ticks, which is not cleanly divisible by classic-ticks-per-beat of 2");
+        }
     }
 });

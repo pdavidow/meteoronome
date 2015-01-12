@@ -26,6 +26,7 @@ Metronome.prototype = {
     },
     start: function() {
         this.reset();
+        this.validate();
         this.startTicks();
         this.isStarted = true;
     },
@@ -159,6 +160,13 @@ Metronome.prototype = {
         this.resetTicks();
         this.resetLoopCount();
         this.resetCurrentBeat();
+    },
+    validate: function() {
+        this.setting.validate();
+        this.validateTicks();
+    },
+    validateTicks: function() {
+        this.ticks;
     },
     get reactiveDict() {
         return this._reactiveDict = this._reactiveDict || new ReactiveDict();

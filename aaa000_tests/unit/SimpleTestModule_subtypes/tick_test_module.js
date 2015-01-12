@@ -12,6 +12,7 @@ _.extend(TickTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
@@ -33,6 +34,7 @@ _.extend(TickTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);
@@ -54,6 +56,7 @@ _.extend(TickTestModule, {
         LibraryPieceManager.insertLibraryPiece(p1);
         p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
+        p1.metronome.validate();
 
         var ticks = p1.metronome.ticks;
         var range = _.range(0,12);

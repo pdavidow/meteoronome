@@ -2,7 +2,8 @@ SimpleTestModuleRunner = (function() {
     var _testModules = function() {
         return {
             TickTestModule: TickTestModule,
-            MetronomeTestModule: MetronomeTestModule
+            MetronomeTestModule: MetronomeTestModule,
+            MetronomeSettingTestModule: MetronomeSettingTestModule
         };
     };
     var _run = function() {
@@ -14,6 +15,8 @@ SimpleTestModuleRunner = (function() {
                 module.run();
             }
         }
+        console.log("==============");
+        console.log("==============");
     };
 
     return {
