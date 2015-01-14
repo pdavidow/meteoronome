@@ -120,6 +120,9 @@ Beat.prototype = {
     get metronome() {
         return this.metronomeSetting.metronome;
     },
+    displayString: function () {
+        return this.description;
+    },
     reset: function() {
         this.resetTicks();
         this.resetDisplayLocationDescription();

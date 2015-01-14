@@ -5,7 +5,7 @@ _.extend(MetronomeSettingTestModule, {
         var p1 = new LibraryPiece('n1', 'c1');
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         var isValid = true;
@@ -29,7 +29,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 0;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         var isValid = true;
@@ -53,7 +53,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 0;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         try {p1.metronome.validate()}
@@ -78,7 +78,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 1;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         try {p1.metronome.validate()}
@@ -103,7 +103,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 1;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         try {
@@ -130,7 +130,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 1;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         try {
@@ -157,7 +157,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 1;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         try {
@@ -184,7 +184,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 0;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         try {
@@ -218,7 +218,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 0;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         try {
@@ -252,7 +252,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 1;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         try {
@@ -286,7 +286,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.endBeatIndex = 1;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         p1.metronome.ticks.pop();
@@ -312,7 +312,7 @@ _.extend(MetronomeSettingTestModule, {
         setting.isUseEntirePiece = true;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1', 'c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
         p1.metronome.ticks.pop();

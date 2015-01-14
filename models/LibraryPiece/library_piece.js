@@ -89,19 +89,17 @@ LibraryPiece.prototype = {
     set holderId(holderId) {
         check(holderId, String);
         this._holderId = holderId;
-    }
-
-    /*,
+    },
     displayString: function () {
         var value, result;
-        result = this.name + ', ' + this.composer;
+        result = this.composer + ', ' + this.name;
         if (value = this.catalogReference) {result += ', ' + value};
-        result += '[';
-        this.measures.forEach(function(each) {result += each.displayString() + ', '});
-        result.slice(-2); //slice off trailing comma
-        result += ']';
+        //result += '[';
+        //this.measures.forEach(function(each) {result += each.displayString() + ', '});
+        //result.slice(-2); //slice off trailing comma
+        //result += ']';
         return result;
-    }*/
+    }
 };
 
 EJSON.addType(className, LibraryPiece.fromJSONValue);

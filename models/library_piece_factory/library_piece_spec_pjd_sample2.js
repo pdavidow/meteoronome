@@ -1,8 +1,8 @@
-LibraryPieceSpec_Sample = Object.create(LibraryPieceFactorySpec);
+LibraryPieceSpec_Sample2 = Object.create(LibraryPieceFactorySpec);
 
-Object.defineProperties(LibraryPieceSpec_Sample, {
+Object.defineProperties(LibraryPieceSpec_Sample2, {
     "myName": {get: function () {
-        return "Sample";
+        return "Sample2";
     }},
     "composer": {get: function () {
         return "PJD";
@@ -13,15 +13,7 @@ Object.defineProperties(LibraryPieceSpec_Sample, {
         measure = new Measure();
         measure.addBeats([
             new Beat(2,3),
-            new Beat(4,3),
-            new Beat(2,3)
-        ]);
-        measures.push(measure);
-
-        measure = new Measure();
-        measure.addBeats([
-            new Beat(4,3),
-            new Beat(7,3)
+            new Beat(11,3)
         ]);
         measures.push(measure);
 
@@ -29,7 +21,7 @@ Object.defineProperties(LibraryPieceSpec_Sample, {
     }}
 });
 
-_.extend(LibraryPieceSpec_Sample, {
+_.extend(LibraryPieceSpec_Sample2, {
     applyMetronomeSetting: function(setting) {
         check(setting, MetronomeSetting);
         setting.classicTicksPerMinute = 30;

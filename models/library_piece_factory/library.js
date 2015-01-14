@@ -1,14 +1,21 @@
 Library = {
     get specSubtypes() {
         return ([
-            LibraryPieceSpec_Sample,
+            LibraryPieceSpec_Sample1,
+            LibraryPieceSpec_Sample2,
             LibraryPieceSpec_ChopinNocturneEminorOpus72No1Posthumous
         ]);
     },
     get pieces() {
-        return this.specSubtypes.map(function(each) {each.piece});
+        return LibraryPieceManager.findAllLibraryPieces();
     },
     reset: function() {
-        this.specSubtypes.forEach(function(each) {each.reset()});
+        LibraryPieceManager.removeAll();
+        this._repopulateDatabase();
+    },
+    _repopulateDatabase: function() {
+        this.specSubtypes.forEach(function(each) {
+            LibraryPieceManager.insertLibraryPiece(each.factoryPiece);
+        });
     }
-};
+}

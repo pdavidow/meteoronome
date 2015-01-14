@@ -49,16 +49,17 @@ Measure.prototype = {
     },
     get index() {
         return this.piece.measures.indexOf(this);
+    },
+    displayString: function () {
+        var result;
+        result = '[';
+        this.beats.forEach(function (each) {
+            result += each.displayString() + ','
+        });
+        result.slice(-1); //slice off trailing comma
+        result += ']';
+        return result;
     }
-    /*,
-     displayString: function () {
-     var result;
-     result = '[';
-     this.beats.forEach(function(each) {result += each.displayString() + ','});
-     result.slice(-1); //slice off trailing comma
-     result += ']';
-     return result;
-     }*/
 };
 
 EJSON.addType(className, Measure.fromJSONValue);

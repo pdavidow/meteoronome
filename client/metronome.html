@@ -7,7 +7,13 @@
 </body>
 
 <template name="main">
-    <button id="start" disabled={{isMetronomeStarted}}>Start: {{pieceName}}</button>
+    <select>
+        {{#each libraryPieces}}
+            <option selected value={{_id}}>{{displayString}}</option>
+        {{/each}}
+    </select>
+    <br/><br/>
+    <button id="start" disabled={{isMetronomeStarted}}>Start</button>
     <button id="stop" disabled={{isMetronomeStopped}}>Stop</button>
     <br/><br/>
     {{> status}}

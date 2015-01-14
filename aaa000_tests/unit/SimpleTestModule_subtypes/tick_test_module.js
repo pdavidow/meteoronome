@@ -10,7 +10,7 @@ _.extend(TickTestModule, {
         setting.classicTicksPerBeat = 1;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
         p1.metronome.validate();
 
@@ -32,7 +32,7 @@ _.extend(TickTestModule, {
         setting.classicTicksPerBeat = 3;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
         p1.metronome.validate();
 
@@ -54,7 +54,7 @@ _.extend(TickTestModule, {
         setting.classicTicksPerBeat = 4;
 
         LibraryPieceManager.insertLibraryPiece(p1);
-        p1 = LibraryPieceManager.findLibraryPieceForNameComposer('n1','c1');
+        p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1','c1');
         LibraryPieceManager.removeLibraryPiece(p1);
         p1.metronome.validate();
 
