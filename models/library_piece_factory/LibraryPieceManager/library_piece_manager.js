@@ -8,18 +8,18 @@ LibraryPieceManager = (function() {
             console.log("libraryPieceHolderInsert isSimulation?", this.isSimulation);
             _checkHolder(holder);
             var contents = _basicContentsFromHolder(holder);
-            var idForDuplicate = LibraryPieceHolders.findOne({}, {piece: {name: contents.name, composer: contents.composer}});
-            if (idForDuplicate) throw new DuplicateFound_Exception(idForDuplicate);
+            var dup = LibraryPieceHolders.findOne({"piece.name": contents.name, "piece.composer": contents.composer});
+            if (dup) throw new DuplicateFound_Exception(dup);
             return LibraryPieceHolders.insert(holder);
         },
         libraryPieceHoldersRemove: function(id) {
             console.log("libraryPieceHolderRemove isSimulation?", this.isSimulation);
             _checkHolderId(id);
-            LibraryPieceHolders.remove(id);
+            return LibraryPieceHolders.remove(id);
         },
         libraryPieceHoldersRemoveAll: function() {
             console.log("libraryPieceHolderRemoveAll isSimulation?", this.isSimulation);
-            LibraryPieceHolders.remove({});
+            return LibraryPieceHolders.remove({});
         }
     });
 
@@ -61,7 +61,7 @@ LibraryPieceManager = (function() {
     _findHolderBy_Name_Composer = function(name, composer) {
         check(name, String);
         check(composer, String);
-        return LibraryPieceHolders.findOne({}, {piece: {name: name, composer: composer}});
+        return LibraryPieceHolders.findOne({"piece.name": name, "piece.composer": composer});
     };
     _findContentsBy_Name_Composer = function(name, composer) {
         var holder = _findHolderBy_Name_Composer(name,  composer);
@@ -93,10 +93,14 @@ LibraryPieceManager = (function() {
     };
     _removeHolderById = function(id) {
         _checkHolderId(id);
-        Meteor.call('libraryPieceHoldersRemove', id, function(error, result){});
+        Meteor.call('libraryPieceHoldersRemove', id, function(error, result){
+            console.log("libraryPieceHoldersRemove result", result);
+        });
     };
     _removeAll = function() {
-        Meteor.call('libraryPieceHoldersRemoveAll', function(error, result){});
+        Meteor.call('libraryPieceHoldersRemoveAll', function(error, result){
+            console.log("libraryPieceHoldersRemoveAll result", result);
+        });
     };
 
     return {

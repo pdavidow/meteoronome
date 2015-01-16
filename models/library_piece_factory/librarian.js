@@ -7,7 +7,7 @@ Librarian = {
         ]);
     },
     reset: function() {
-        Meteor.call('libraryPieceHolderRemoveAll', function(error, result){});
+        LibraryPieceManager.removeAll();
         this._repopulateDatabase();
     },
     _repopulateDatabase: function() {
