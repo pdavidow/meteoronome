@@ -38,9 +38,7 @@ Audio = {
     },
     finishedLoading: function(buffers) {
         Audio.assignTones(buffers);
-        if (Audio.finishedLoadingFunction) {
-            Audio.finishedLoadingFunction.apply()
-        }
+        if (Audio.finishedLoadingFunction) Audio.finishedLoadingFunction.apply();
     },
     assignTones: function(buffers) {
         Audio.tone_700hz = buffers[0];

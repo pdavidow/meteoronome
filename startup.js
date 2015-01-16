@@ -9,7 +9,7 @@ Meteor.startup(function () {
         if (isRunTests) {SimpleTestModuleRunner.run()};
     }
     if (Meteor.isServer) {
-        Library.reset(); // todo -- temp
+        Librarian.reset(); // todo -- temp
     }
 })
 

@@ -1,4 +1,4 @@
-Library = {
+Librarian = {
     get specSubtypes() {
         return ([
             LibraryPieceSpec_Sample1,
@@ -6,11 +6,8 @@ Library = {
             LibraryPieceSpec_ChopinNocturneEminorOpus72No1Posthumous
         ]);
     },
-    get pieces() {
-        return LibraryPieceManager.findAllLibraryPieces();
-    },
     reset: function() {
-        LibraryPieceManager.removeAll();
+        Meteor.call('libraryPieceHolderRemoveAll', function(error, result){});
         this._repopulateDatabase();
     },
     _repopulateDatabase: function() {

@@ -27,8 +27,12 @@ if (Meteor.isClient) {
         pieceName: function(){
             return testPiece.name;
         },
-        libraryPieces: function(){
-            return Library.pieces;
+        libraryPieceHolders: function(){
+            return LibraryPieceManager.findAllLibraryPieceHolders();
+        },
+        defaultLibaryPieceHolderSelection: function() {
+            // return _.first(Template.instance().libraryPieceHolders()); // todo
+            return _.first(LibraryPieceManager.findAllLibraryPieceHolders());
         }
     });
     Template.main.events({

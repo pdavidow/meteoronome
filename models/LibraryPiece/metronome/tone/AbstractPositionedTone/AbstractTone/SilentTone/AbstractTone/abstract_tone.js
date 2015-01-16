@@ -11,9 +11,7 @@ AbstractTone.prototype = {
         return Audio.startBufferAtTime(this.buffer, time);
     },
     stop: function() {
-        if (this.source) {
-            this.source.disconnect()
-        }
+        if (this.source) this.source.disconnect();
     },
     get buffer() {
         Intent.subtypeMustImplement();

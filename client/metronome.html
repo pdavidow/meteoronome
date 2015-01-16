@@ -7,9 +7,9 @@
 </body>
 
 <template name="main">
-    <select>
-        {{#each libraryPieces}}
-            <option selected value={{_id}}>{{displayString}}</option>
+    <select selected={{defaultLibaryPieceHolderSelection}}>
+        {{#each libraryPieceHolders}}
+            <option selected value={{_id}}>{{piece.displayString}}</option>
         {{/each}}
     </select>
     <br/><br/>

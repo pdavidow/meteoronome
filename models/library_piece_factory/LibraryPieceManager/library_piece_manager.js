@@ -4,90 +4,111 @@ LibraryPieceManager = (function() {
     // I serve to encapsulate the workaround.
 
     Meteor.methods({
-        libraryPieceHolderInsert: function(libraryPieceHolder) {
+        libraryPieceHoldersInsert: function(holder) {
             console.log("libraryPieceHolderInsert isSimulation?", this.isSimulation);
-            _checkHolder(libraryPieceHolder);
-            return LibraryPieceHolders.insert(libraryPieceHolder);
+            _checkHolder(holder);
+            var contents = _basicContentsFromHolder(holder);
+            var idForDuplicate = LibraryPieceHolders.findOne({}, {piece: {name: contents.name, composer: contents.composer}});
+            if (idForDuplicate) throw new DuplicateFound_Exception(idForDuplicate);
+            return LibraryPieceHolders.insert(holder);
         },
-        libraryPieceHolderRemove: function(libraryPieceHolderId) {
+        libraryPieceHoldersRemove: function(id) {
             console.log("libraryPieceHolderRemove isSimulation?", this.isSimulation);
-            check(libraryPieceHolderId, String);
-            LibraryPieceHolders.remove(libraryPieceHolderId);
+            _checkHolderId(id);
+            LibraryPieceHolders.remove(id);
         },
-        libraryPieceHolderRemoveAll: function() {
+        libraryPieceHoldersRemoveAll: function() {
             console.log("libraryPieceHolderRemoveAll isSimulation?", this.isSimulation);
             LibraryPieceHolders.remove({});
         }
     });
 
-    _checkHolder = function(libraryPieceHolder) {
-        check(libraryPieceHolder, {piece: LibraryPiece});
+    _checkContents = function(contents) {
+        check(contents, LibraryPiece);
     };
-    _holdPiece = function(piece) {
-        return {piece: piece};
+    _checkHolder = function(holder) {
+        Match.test(holder, {piece: LibraryPiece});
     };
-    _pieceFromHolder = function(holder) {
-        if (holder) {
-            var piece = holder.piece;
-            piece.holderId = holder._id;
-            return piece;
-        } else {
-            throw("missing holder");
-        }
-    },
-    _insertLibraryPiece = function(piece) {
-        // todo: need to guarantee uniqueness by first attempting to find existing that matches
-        check(piece, LibraryPiece);
-        var holder = _holdPiece(piece);
-        Meteor.call('libraryPieceHolderInsert', holder, function(error, result){
-            piece.holderId = result;
+    _checkHolderId = function(id) {
+        check(id, String);
+    };
+    _holderForContents = function(contents) {
+        _checkContents(contents);
+        return {piece: contents};
+    };
+    _basicContentsFromHolder = function(holder) {
+        _checkHolder(holder);
+        return holder.piece;
+    };
+    _contentsFromHolder = function(holder) {
+        _checkHolder(holder);
+        var contents = _basicContentsFromHolder(holder);
+        contents.holderId = holder._id;
+        return contents;
+    };
+    _insertContents = function(contents) {
+        _checkContents(contents);
+        var holder = _holderForContents(contents);
+        Meteor.call('libraryPieceHoldersInsert', holder, function(error, result){
+            if (error) return error;
+            if (result) contents.holderId = result;
         });
     };
+    _findHolderBy_Id = function(id){
+        _checkHolderId(id);
+        return LibraryPieceHolders.findOne({_id: id});
+    };
     _findHolderBy_Name_Composer = function(name, composer) {
+        check(name, String);
+        check(composer, String);
         return LibraryPieceHolders.findOne({}, {piece: {name: name, composer: composer}});
     };
-    _findLibraryPieceBy_Name_Composer = function(name, composer) {
+    _findContentsBy_Name_Composer = function(name, composer) {
         var holder = _findHolderBy_Name_Composer(name,  composer);
-        return _pieceFromHolder(holder);
+        if (holder) {
+            return _contentsFromHolder(holder);
+        } else {
+            return null;
+        }
     };
-    _findLibraryPieceBy_Id = function(id) {
+    _findContentsBy_Id = function(id) {
         var holder = _findHolderBy_Id(id);
-        return _pieceFromHolder(holder);
+        if (holder) {
+            return _contentsFromHolder(holder);
+        } else {
+            return null;
+        }
     };
     _findAllHolders = function() {
         //return LibraryPieceHolders.find();
         return LibraryPieceHolders.find({}, {sort: [["piece.composer","asc"],["piece.name","asc"],["piece.catalogReference","asc"]]});
     };
-    _findAllLibraryPieces = function(name, composer) {
-        var holders = _findAllHolders();
-        return holders.map(function(each) {
-            var piece = each.piece;
-            piece.holderId = each._id;
-            return piece;
-        });
+    _removeContents = function(contents) {
+        _checkContents(contents);
+        _removeHolderById(contents.holderId);
     };
-    _removeLibraryPiece = function(libraryPiece) {
-        var holderId = libraryPiece.holderId;
-        if (holderId) {
-            return _removeHolderOfId(holderId);
-        } else {
-            throw("missing holderId");
-        }
+    _removeHolder = function(holder) {
+        _checkHolder(holder);
+        _removeHolderById(holder._id);
     };
-    _removeHolderOfId = function(holderId) {
-        Meteor.call('libraryPieceHolderRemove', holderId, function(error, result){});
+    _removeHolderById = function(id) {
+        _checkHolderId(id);
+        Meteor.call('libraryPieceHoldersRemove', id, function(error, result){});
     };
     _removeAll = function() {
-        Meteor.call('libraryPieceHolderRemoveAll', function(error, result){});
+        Meteor.call('libraryPieceHoldersRemoveAll', function(error, result){});
     };
 
     return {
-        insertLibraryPiece: _insertLibraryPiece,
-        removeLibraryPiece: _removeLibraryPiece,
+        insertLibraryPiece: _insertContents,
+        removeLibraryPiece: _removeContents,
+        removeLibraryPieceHolder: _removeHolder,
         removeAll: _removeAll,
-        findLibraryPieceBy_Name_Composer: _findLibraryPieceBy_Name_Composer,
-        //findLibraryPieceBy_Name_Composer_CatalogReference: _findLibraryPieceBy_Name_Composer_CatalogReference, todo
-        findLibraryPieceBy_Id: _findLibraryPieceBy_Id,
-        findAllLibraryPieces: _findAllLibraryPieces
+        findLibraryPieceBy_Name_Composer: _findContentsBy_Name_Composer,
+        findLibraryPieceBy_Id: _findContentsBy_Id,
+        findLibraryPieceHolderBy_Name_Composer: _findHolderBy_Name_Composer,
+        //findLibraryPieceBy_Name_Composer_CatalogReference: _findContentsBy_Name_Composer_CatalogReference // todo
+        findAllLibraryPieceHolders: _findAllHolders
+        // findAllLibraryPieces: DO NOT IMPLEMENT (need cursor for reactivity)
     }
 })()

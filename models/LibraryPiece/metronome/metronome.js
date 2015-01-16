@@ -97,9 +97,7 @@ Metronome.prototype = {
         })
     },
     get currentBeat() {
-        if (!this._currentBeat) {
-            this.setCurrentBeatToFirst();
-        }
+        if (!this._currentBeat) this.setCurrentBeatToFirst();
         return this._currentBeat;
     },
     set currentBeat(beat) {

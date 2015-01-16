@@ -28,15 +28,9 @@ Tick.prototype = {
         this._isLeftHand = value;
     },
     get isBackground() {
-        if (this.isClassic) {
-            return false
-        }
-        if (this.isRightHand) {
-            return false
-        }
-        if (this.isLeftHand) {
-            return false
-        }
+        if (this.isClassic) return false;
+        if (this.isRightHand) return false;
+        if (this.isLeftHand) return false;
         return true;
     },
     get tones() {
@@ -44,18 +38,10 @@ Tick.prototype = {
     },
     _makeTones: function() {
         var tones = [];
-        if (this.isBackground) {
-            tones.push(new BackgroundTone())
-        }
-        if (this.isClassic) {
-            tones.push(new ClassicTone())
-        }
-        if (this.isRightHand) {
-            tones.push(new RightHandTone(true))
-        }
-        if (this.isLeftHand) {
-            tones.push(new LeftHandTone(true))
-        }
+        if (this.isBackground) tones.push(new BackgroundTone());
+        if (this.isClassic) tones.push(new ClassicTone());
+        if (this.isRightHand) tones.push(new RightHandTone(true));
+        if (this.isLeftHand) tones.push(new LeftHandTone(true));
         return tones;
     },
     startAtTime: function(time) {
@@ -70,9 +56,7 @@ Tick.prototype = {
       return new OnStartSilentTone(this.onStarted);
     },
     enableOnStarted: function() {
-        if (this.isEnabledOnStarted) {
-            return
-        }
+        if (this.isEnabledOnStarted) return;
         this.tones.push(this.onStartSilentTone);
         this._isEnabledOnStarted = true;
     },

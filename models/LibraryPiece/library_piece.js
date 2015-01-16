@@ -86,9 +86,9 @@ LibraryPiece.prototype = {
     get holderId() {
         return this._holderId;
     },
-    set holderId(holderId) {
-        check(holderId, String);
-        this._holderId = holderId;
+    set holderId(id) {
+        check(id, String);
+        this._holderId = id;
     },
     displayString: function () {
         var value, result;
