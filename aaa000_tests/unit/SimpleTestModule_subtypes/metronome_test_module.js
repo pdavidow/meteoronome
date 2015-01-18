@@ -605,11 +605,14 @@ _.extend(MetronomeTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
+        var isValid = true;
         try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_ClassicTicksPerBeat_Exception);
             console.log("ASSERT: b", e.displayMessage == "Invalid classic-ticks-per-beat: Beat (Beat 1 {1,3}, Measure 1) has 3 ticks, which is not cleanly divisible by classic-ticks-per-beat of 2");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_19: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -633,11 +636,14 @@ _.extend(MetronomeTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
+        var isValid = true;
         try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_ClassicTicksPerBeat_Exception);
             console.log("ASSERT: b", e.displayMessage == "Invalid classic-ticks-per-beat: Beat (Beat 2 {5,3}, Measure 2) has 15 ticks, which is not cleanly divisible by classic-ticks-per-beat of 2");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_20: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -655,10 +661,13 @@ _.extend(MetronomeTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
+        var isValid = true;
         try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_ClassicTicksPerBeat_Exception);
             console.log("ASSERT: b", e.displayMessage == "Invalid classic-ticks-per-beat: Beat (Beat 2 {1,1}, Measure 1) has 1 ticks, which is not cleanly divisible by classic-ticks-per-beat of 2");
         }
+        console.log("ASSERT: c", !isValid);
     }
 });

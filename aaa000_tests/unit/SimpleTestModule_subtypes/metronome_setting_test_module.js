@@ -56,11 +56,14 @@ _.extend(MetronomeSettingTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
+        var isValid = true;
         try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_Exception);
             console.log("ASSERT: b", e.displayMessage == "Metronome-Setting begin-beat-index must not exceed number of beats in begin-measure");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_1c: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -81,11 +84,14 @@ _.extend(MetronomeSettingTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
+        var isValid = true;
         try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_Exception);
             console.log("ASSERT: b", e.displayMessage == "Metronome-Setting begin-beat-index must not exceed number of beats in begin-measure");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_1d: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -106,13 +112,14 @@ _.extend(MetronomeSettingTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
-        try {
-            p1.metronome.validate()
-        }
+        var isValid = true;
+        try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_Exception);
             console.log("ASSERT: b", e.displayMessage == "Metronome-Setting begin-measure-index must not exceed number of measures for piece");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_1e: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -133,13 +140,14 @@ _.extend(MetronomeSettingTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
-        try {
-            p1.metronome.validate()
-        }
+        var isValid = true;
+        try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_Exception);
             console.log("ASSERT: b", e.displayMessage == "Metronome-Setting begin-measure-index must not exceed number of measures for piece");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_1f: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -160,13 +168,14 @@ _.extend(MetronomeSettingTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
-        try {
-            p1.metronome.validate()
-        }
+        var isValid = true;
+        try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_Exception);
             console.log("ASSERT: b", e.displayMessage == "Metronome-Setting end-beat-index must not exceed number of beats in end-measure");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_1g: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -187,13 +196,14 @@ _.extend(MetronomeSettingTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
-        try {
-            p1.metronome.validate()
-        }
+        var isValid = true;
+        try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_Exception);
             console.log("ASSERT: b", e.displayMessage == "Metronome-Setting end-measure-index must not exceed number of measures for piece");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_2a: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -221,13 +231,14 @@ _.extend(MetronomeSettingTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
-        try {
-            p1.metronome.validate()
-        }
+        var isValid = true;
+        try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_Exception);
             console.log("ASSERT: b", e.displayMessage == "Begin-beat-index must be <= end-beat-index in same measure");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_2b: function () {
         var p1 = new LibraryPiece('n1', 'c1');
@@ -255,13 +266,14 @@ _.extend(MetronomeSettingTestModule, {
         p1 = LibraryPieceManager.findLibraryPieceBy_Name_Composer('n1', 'c1');
         LibraryPieceManager.removeLibraryPiece(p1);
 
-        try {
-            p1.metronome.validate()
-        }
+        var isValid = true;
+        try {p1.metronome.validate()}
         catch (e) {
+            isValid = false;
             console.log("ASSERT: a", e.constructor == MetronomeSetting_Exception);
             console.log("ASSERT: b", e.displayMessage == "Begin-measure-index must be <= to end-measure-index");
         }
+        console.log("ASSERT: c", !isValid);
     },
     test_3a: function () {
         var p1 = new LibraryPiece('n1', 'c1');

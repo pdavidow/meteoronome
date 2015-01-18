@@ -8,8 +8,8 @@ LibraryPieceManager = (function() {
             console.log("libraryPieceHolderInsert isSimulation?", this.isSimulation);
             _checkHolder(holder);
             var contents = _basicContentsFromHolder(holder);
-            var dup = LibraryPieceHolders.findOne({"piece.name": contents.name, "piece.composer": contents.composer});
-            if (dup) throw new DuplicateFound_Exception(dup);
+            var dup = _findHolderBy_Name_Composer(contents.name, contents.composer);
+            if (dup) throw new Meteor.Error("libraryPieceHolderInsert failed", "duplicate found");
             return LibraryPieceHolders.insert(holder);
         },
         libraryPieceHoldersRemove: function(id) {
