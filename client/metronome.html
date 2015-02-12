@@ -9,14 +9,14 @@
 <template name="main">
     Library
     <br/>
-    <select id="libraryPieceList">
+    <select id="libraryPieceList" disabled={{isLibraryPieceListDisabled}}>
         {{#each cursorOnLibraryPieces}}
             <option value={{_id}}>{{displayString}}</option>
         {{/each}}
     </select>
     <br/><br/>
-    <button id="start" disabled={{isStartDisabled}}>Start</button>
-    <button id="stop" disabled={{isStopDisabled}}>Stop</button>
+    <button id="start" disabled={{isStartButtonDisabled}}>Start</button>
+    <button id="stop" disabled={{isStopButtonDisabled}}>Stop</button>
     <br/><br/>
     {{#if isLibraryPieceSelected}}
         {{> status}}

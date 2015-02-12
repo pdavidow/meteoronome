@@ -37,11 +37,15 @@ if (Meteor.isClient) {
     };
 
     Template.main.helpers({
-        isStartDisabled: function() {
+        isLibraryPieceListDisabled: function() {
+            if (isLibraryPieceSelected()) return isMetronomeStarted();
+            return false;
+        },
+        isStartButtonDisabled: function() {
             if (isLibraryPieceSelected()) return isMetronomeStarted();
             return true;
         },
-        isStopDisabled: function() {
+        isStopButtonDisabled: function() {
             if (isLibraryPieceSelected()) return isMetronomeStopped();
             return true;
         },
