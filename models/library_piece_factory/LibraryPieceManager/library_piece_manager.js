@@ -70,14 +70,19 @@ LibraryPieceManager = (function() {
             });
         };
 
-        return {
-            insertLibraryPiece: _insertLibraryPiece,
-            removeLibraryPiece: _removeLibraryPiece,
-            removeLibraryPieceById: _removeLibraryPieceById,
-            removeAll: _removeAll,
+        serverAPI = {
             findLibraryPieceBy_Id: _findLibraryPieceBy_Id,
             findLibraryPieceBy_Name_Composer: _findLibraryPieceBy_Name_Composer,
             cursorOnLibraryPieces: _cursorOnLibraryPieces
-        }
+        };
+        clientAPI = _.extend(serverAPI, {
+            insertLibraryPiece: _insertLibraryPiece,
+            removeLibraryPiece: _removeLibraryPiece,
+            removeLibraryPieceById: _removeLibraryPieceById,
+            removeAll: _removeAll
+        });
+
+        if (Meteor.isClient) return clientAPI;
+        if (Meteor.isServer) return serverAPI;
     }
 })()
