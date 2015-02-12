@@ -1,5 +1,4 @@
-var isRunTests = false;
-isRunTests = true;
+var isRunTests = true;
 
 Meteor.startup(function () {
     if (Meteor.isClient) {
@@ -7,9 +6,8 @@ Meteor.startup(function () {
             console.log("audio finished loading");
         });
         if (isRunTests) {SimpleTestModuleRunner.run()};
-    }
-    if (Meteor.isServer) {
-        Librarian.reset(); // todo -- temp
+        //Librarian.ensureLibraryLoaded();
+        Librarian.reset();
     }
 })
 

@@ -1,141 +1,143 @@
 if (Meteor.isClient) {
-    var testPiece = LibraryPieceSpec_Sample1.factoryPiece;
+    var selectedLibraryPiece = new ReactiveVar(null);
 
-/* //////////// todo: uncomment when move to latest release
-    Template.registerHelper("isMetronomeStarted", function() {
-        return testPiece.metronome.isStarted;
-    });
-    Template.registerHelper("isMetronomeStopped", function() {
-        return testPiece.metronome.isStopped;
-    });
-    Template.registerHelper("isLoop", function() {
-        return testPiece.metronomeSetting.isLoop;
-    });
-*/
+    var isMetronomeStarted = function() {
+        var libraryPiece = selectedLibraryPiece.get();
+        if (libraryPiece) return libraryPiece.metronome.isStarted;
+        return false;
+    };
+    var isMetronomeStopped = function() {
+        var libraryPiece = selectedLibraryPiece.get();
+        if (libraryPiece) return libraryPiece.metronome.isStopped;
+        return true;
+    };
+    var isLoop = function() {
+        var libraryPiece = selectedLibraryPiece.get();
+        if (libraryPiece) return libraryPiece.metronomeSetting.isLoop;
+        return false;
+    };
+    var isLibraryPieceSelected = function() {
+        return selectedLibraryPiece.get() ? true : false;
+    };
+    var isUseEntirePiece = function() {
+        var libraryPiece = selectedLibraryPiece.get();
+        if (libraryPiece) return libraryPiece.metronomeSetting.isUseEntirePiece;
+        return true;
+    };
+
+    Template.registerHelper("isMetronomeStarted", isMetronomeStarted);
+    Template.registerHelper("isMetronomeStopped", isMetronomeStopped);
+    Template.registerHelper("isLoop", isLoop);
+    Template.registerHelper("isLibraryPieceSelected", isLibraryPieceSelected);
+    Template.registerHelper("isUseEntirePiece", isUseEntirePiece);
+
+    Template.main.rendered = function() {
+        var id = $('#libraryPieceList').val();
+        if (id) selectedLibraryPiece.set(LibraryPieceManager.findLibraryPieceBy_Id(id));
+    };
 
     Template.main.helpers({
-        isMetronomeStarted: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronome.isStarted;
+        isStartDisabled: function() {
+            if (isLibraryPieceSelected()) return isMetronomeStarted();
+            return true;
         },
-        isMetronomeStopped: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronome.isStopped;
+        isStopDisabled: function() {
+            if (isLibraryPieceSelected()) return isMetronomeStopped();
+            return true;
         },
-        isLoop: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronomeSetting.isLoop;
-        },
-
         pieceName: function(){
-            return testPiece.name;
+            var libraryPiece = selectedLibraryPiece.get();
+            if (libraryPiece) return libraryPiece.name;
+            return "";
         },
-        libraryPieceHolders: function(){
-            return LibraryPieceManager.findAllLibraryPieceHolders();
-        },
-        defaultLibaryPieceHolderSelection: function() {
-            // return _.first(Template.instance().libraryPieceHolders()); // todo
-            return _.first(LibraryPieceManager.findAllLibraryPieceHolders());
+        cursorOnLibraryPieces: function() {
+            return LibraryPieceManager.cursorOnLibraryPieces();
         }
     });
     Template.main.events({
         "click #start": function() {
-            testPiece.startMetronome();
+            var libraryPiece = selectedLibraryPiece.get();
+            if (libraryPiece) libraryPiece.startMetronome();
         },
         "click #stop": function() {
-            testPiece.stopMetronome();
+            var libraryPiece = selectedLibraryPiece.get();
+            if (libraryPiece) libraryPiece.stopMetronome();
+        },
+        "change #libraryPieceList": function() {
+            // http://stackoverflow.com/questions/10659097/jquery-get-selected-option-from-dropdown
+            var id = $('#libraryPieceList option:selected').val();
+            if (id) selectedLibraryPiece.set(LibraryPieceManager.findLibraryPieceBy_Id(id));
         }
     });
 
     Template.status.helpers({
-        isMetronomeStarted: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronome.isStarted;
-        },
-        isMetronomeStopped: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronome.isStopped;
-        },
-        isLoop: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronomeSetting.isLoop;
-        },
-
-
         currentBeat: function() {
-            testPiece.metronome.currentBeatDep.depend();
-            return testPiece.metronome.currentBeat.displayLocationDescription;
+            var libraryPiece = selectedLibraryPiece.get();
+            libraryPiece.metronome.currentBeatDep.depend();
+            return libraryPiece.metronome.currentBeat.displayLocationDescription;
         },
         loopCount: function() {
-            var count = testPiece.metronome.loopCount;
+            var count = selectedLibraryPiece.get().metronome.loopCount;
             return count == 0 ? "---" : count.toString();
         }
     });
 
     Template.setting.helpers({
-        isMetronomeStarted: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronome.isStarted;
-        },
-        isMetronomeStopped: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronome.isStopped;
-        },
-        isLoop: function() {  //////////// todo: remove when move to latest release
-            return testPiece.metronomeSetting.isLoop;
-        },
-
         classicTicksPerMinute: function() {
-            return testPiece.metronomeSetting.classicTicksPerMinute;
+            return selectedLibraryPiece.get().metronomeSetting.classicTicksPerMinute;
         },
         classicTicksPerBeat: function() {
-            return testPiece.metronomeSetting.classicTicksPerBeat;
-        },
-        isUseEntirePiece: function() {
-            return testPiece.metronomeSetting.isUseEntirePiece;
+            return selectedLibraryPiece.get().metronomeSetting.classicTicksPerBeat;
         },
         measureAmount: function() {
-            return testPiece.measures.length;
+            return selectedLibraryPiece.get().measures.length;
         },
         beginBeatIndex: function() {
-            return IndexAdaptor.shiftUp(testPiece.metronomeSetting.beginBeatIndex);
+            return IndexAdaptor.shiftUp(selectedLibraryPiece.get().metronomeSetting.beginBeatIndex);
         },
         endBeatIndex: function() {
-            return IndexAdaptor.shiftUp(testPiece.metronomeSetting.endBeatIndex);
+            return IndexAdaptor.shiftUp(selectedLibraryPiece.get().metronomeSetting.endBeatIndex);
         },
         beginMeasureIndex: function() {
-            return IndexAdaptor.shiftUp(testPiece.metronomeSetting.beginMeasureIndex);
+            return IndexAdaptor.shiftUp(selectedLibraryPiece.get().metronomeSetting.beginMeasureIndex);
         },
         endMeasureIndex: function() {
-            return IndexAdaptor.shiftUp(testPiece.metronomeSetting.endMeasureIndex);
+            return IndexAdaptor.shiftUp(selectedLibraryPiece.get().metronomeSetting.endMeasureIndex);
         },
         isDisableIndexField: function() {
-            //return Template.instance().isMetronomeStarted() || Template.instance().isUseEntirePiece; // todo: once at latest release, see if this works
-            return testPiece.metronome.isStarted || testPiece.metronomeSetting.isUseEntirePiece;
+            return isMetronomeStarted() || isUseEntirePiece();
         }
     });
     Template.setting.events({
         "change #classicTicksPerMinute": function () {
             var int = parseInt($('#classicTicksPerMinute').val(), 10);
-            testPiece.metronomeSetting.classicTicksPerMinute = int;
+            selectedLibraryPiece.get().metronomeSetting.classicTicksPerMinute = int;
         },
         "change #classicTicksPerBeat": function () {
             var int = parseInt($('#classicTicksPerBeat').val(), 10);
-            testPiece.metronomeSetting.classicTicksPerBeat = int;
+            selectedLibraryPiece.get().metronomeSetting.classicTicksPerBeat = int;
         },
         "click .check#isLoop": function () {
-            testPiece.metronomeSetting.toggleIsLoop();
+            selectedLibraryPiece.get().metronomeSetting.toggleIsLoop();
         },
         "click .check#isUseEntirePiece": function () {
-            testPiece.metronomeSetting.toggleIsUseEntirePiece();
+            selectedLibraryPiece.get().metronomeSetting.toggleIsUseEntirePiece();
         },
         "change #beginBeatIndex": function () {
             var int = parseInt($('#beginBeatIndex').val(), 10);
-            testPiece.metronomeSetting.beginBeatIndex = IndexAdaptor.shiftDown(int);
+            selectedLibraryPiece.get().metronomeSetting.beginBeatIndex = IndexAdaptor.shiftDown(int);
         },
         "change #beginMeasureIndex": function () {
             var int = parseInt($('#beginMeasureIndex').val(), 10);
-            testPiece.metronomeSetting.beginMeasureIndex = IndexAdaptor.shiftDown(int);
+            selectedLibraryPiece.get().metronomeSetting.beginMeasureIndex = IndexAdaptor.shiftDown(int);
         },
         "change #endBeatIndex": function () {
             var int = parseInt($('#endBeatIndex').val(), 10);
-            testPiece.metronomeSetting.endBeatIndex = IndexAdaptor.shiftDown(int);
+            selectedLibraryPiece.get().metronomeSetting.endBeatIndex = IndexAdaptor.shiftDown(int);
         },
         "change #endMeasureIndex": function () {
             var int = parseInt($('#endMeasureIndex').val(), 10);
-            testPiece.metronomeSetting.endMeasureIndex = IndexAdaptor.shiftDown(int);
+            selectedLibraryPiece.get().metronomeSetting.endMeasureIndex = IndexAdaptor.shiftDown(int);
         }
     });
 }

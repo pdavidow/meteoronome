@@ -1,4 +1,4 @@
 if (Meteor.isClient) {
-    Meteor.subscribe("myPieceHolders");
-    Meteor.subscribe("allLibraryPieceHolders");
+    //Meteor.subscribe("myPieces");
+    Meteor.subscribe("allLibraryPieces");
 }

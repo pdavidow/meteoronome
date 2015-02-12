@@ -1,118 +1,83 @@
 LibraryPieceManager = (function() {
-    // I exist because Meteor does not support EJSON custom types at the top level.
-    // See https://github.com/meteor/meteor/issues/3310#issuecomment-68743074
-    // I serve to encapsulate the workaround.
-
-    Meteor.methods({
-        libraryPieceHoldersInsert: function(holder) {
-            console.log("libraryPieceHolderInsert isSimulation?", this.isSimulation);
-            _checkHolder(holder);
-            var contents = _basicContentsFromHolder(holder);
-            var dup = _findHolderBy_Name_Composer(contents.name, contents.composer);
-            if (dup) throw new Meteor.Error("libraryPieceHolderInsert failed", "duplicate found");
-            return LibraryPieceHolders.insert(holder);
-        },
-        libraryPieceHoldersRemove: function(id) {
-            console.log("libraryPieceHolderRemove isSimulation?", this.isSimulation);
-            _checkHolderId(id);
-            return LibraryPieceHolders.remove(id);
-        },
-        libraryPieceHoldersRemoveAll: function() {
-            console.log("libraryPieceHolderRemoveAll isSimulation?", this.isSimulation);
-            return LibraryPieceHolders.remove({});
+    LibraryPieces = new Mongo.Collection('library_pieces', {
+        transform: function (doc) {
+            return LibraryPiece.fromJSONValue(doc);
         }
     });
 
-    _checkContents = function(contents) {
-        check(contents, LibraryPiece);
-    };
-    _checkHolder = function(holder) {
-        Match.test(holder, {piece: LibraryPiece});
-    };
-    _checkHolderId = function(id) {
+    Meteor.methods({
+        insertLibraryPieceAsJSON: function(object) {
+            check(object, Match.ObjectIncluding({name: String, composer: String}));
+            var dup = _findLibraryPieceBy_Name_Composer(object.name, object.composer);
+            if (dup) throw new Meteor.Error("insertLibraryPieceAsJSON failed", "duplicate found");
+            console.log("insertLibraryPieceAsJSON isSimulation?", this.isSimulation);
+            return LibraryPieces.insert(object);
+        },
+        removeLibraryPieceById: function(id) {
+            console.log("removeLibraryPieceById isSimulation?", this.isSimulation);
+            check(id, String);
+            return LibraryPieces.remove(id);
+        },
+        removeAllLibraryPieces: function() {
+            console.log("removeAllLibraryPieces isSimulation?", this.isSimulation);
+            return LibraryPieces.remove({});
+        }
+    });
+
+    _findLibraryPieceBy_Id = function(id) {
         check(id, String);
+        return LibraryPieces.findOne({"_id": id});
     };
-    _holderForContents = function(contents) {
-        _checkContents(contents);
-        return {piece: contents};
-    };
-    _basicContentsFromHolder = function(holder) {
-        _checkHolder(holder);
-        return holder.piece;
-    };
-    _contentsFromHolder = function(holder) {
-        _checkHolder(holder);
-        var contents = _basicContentsFromHolder(holder);
-        contents.holderId = holder._id;
-        return contents;
-    };
-    _insertContents = function(contents) {
-        _checkContents(contents);
-        var holder = _holderForContents(contents);
-        Meteor.call('libraryPieceHoldersInsert', holder, function(error, result){
-            if (error) return error;
-            if (result) contents.holderId = result;
-        });
-    };
-    _findHolderBy_Id = function(id){
-        _checkHolderId(id);
-        return LibraryPieceHolders.findOne({_id: id});
-    };
-    _findHolderBy_Name_Composer = function(name, composer) {
+    _findLibraryPieceBy_Name_Composer = function(name, composer) {
         check(name, String);
         check(composer, String);
-        return LibraryPieceHolders.findOne({"piece.name": name, "piece.composer": composer});
+        return LibraryPieces.findOne({"name": name, "composer": composer});
     };
-    _findContentsBy_Name_Composer = function(name, composer) {
-        var holder = _findHolderBy_Name_Composer(name,  composer);
-        if (holder) {
-            return _contentsFromHolder(holder);
-        } else {
-            return null;
-        }
-    };
-    _findContentsBy_Id = function(id) {
-        var holder = _findHolderBy_Id(id);
-        if (holder) {
-            return _contentsFromHolder(holder);
-        } else {
-            return null;
-        }
-    };
-    _findAllHolders = function() {
-        //return LibraryPieceHolders.find();
-        return LibraryPieceHolders.find({}, {sort: [["piece.composer","asc"],["piece.name","asc"],["piece.catalogReference","asc"]]});
-    };
-    _removeContents = function(contents) {
-        _checkContents(contents);
-        _removeHolderById(contents.holderId);
-    };
-    _removeHolder = function(holder) {
-        _checkHolder(holder);
-        _removeHolderById(holder._id);
-    };
-    _removeHolderById = function(id) {
-        _checkHolderId(id);
-        Meteor.call('libraryPieceHoldersRemove', id, function(error, result){
-            console.log("libraryPieceHoldersRemove result", result);
-        });
-    };
-    _removeAll = function() {
-        Meteor.call('libraryPieceHoldersRemoveAll', function(error, result){
-            console.log("libraryPieceHoldersRemoveAll result", result);
-        });
+    _cursorOnLibraryPieces = function() {
+        return LibraryPieces.find({}, {sort: [["composer", "asc"], ["name", "asc"], ["catalogReference", "asc"], ["publicationDate", "asc"]]});
     };
 
-    return {
-        insertLibraryPiece: _insertContents,
-        removeLibraryPiece: _removeContents,
-        removeLibraryPieceHolder: _removeHolder,
-        removeAll: _removeAll,
-        findLibraryPieceBy_Name_Composer: _findContentsBy_Name_Composer,
-        findLibraryPieceBy_Id: _findContentsBy_Id,
-        findLibraryPieceHolderBy_Name_Composer: _findHolderBy_Name_Composer,
-        //findLibraryPieceBy_Name_Composer_CatalogReference: _findContentsBy_Name_Composer_CatalogReference // todo
-        findAllLibraryPieceHolders: _findAllHolders
-        // findAllLibraryPieces: DO NOT IMPLEMENT (need cursor for reactivity)
+    if (Meteor.isClient) {
+        _insertLibraryPiece = function(libraryPiece) {
+            check(libraryPiece, LibraryPiece);
+            var object = libraryPiece.toJSONValue();
+            Session.set("insertLibraryPiece_error", null);
+            Session.set("insertLibraryPiece_result", null);
+            Meteor.call('insertLibraryPieceAsJSON', object, function (error, result) {
+                if (error) Session.set("insertLibraryPiece_error", error);
+                if (result) Session.set("insertLibraryPiece_result", result);
+            });
+        };
+        _removeLibraryPiece = function(libraryPiece) {
+            check(libraryPiece, LibraryPiece);
+            _removeLibraryPieceById(libraryPiece._id);
+        };
+        _removeLibraryPieceById = function(id) {
+            check(id, String);
+            Session.set("removeLibraryPieceById_error", null);
+            Session.set("removeLibraryPieceById_result", null);
+            Meteor.call('removeLibraryPieceById', id, function (error, result) {
+                if (error) Session.set("removeLibraryPieceById_error", error);
+                if (result) Session.set("removeLibraryPieceById_result", result);
+            });
+        };
+        _removeAll = function() {
+            Session.set("removeAllLibraryPieces_error", null);
+            Session.set("removeAllLibraryPieces_result", null);
+            Meteor.call('removeAllLibraryPieces', function (error, result) {
+                if (error) Session.set("removeAllLibraryPieces_error", error);
+                if (result) Session.set("removeAllLibraryPieces_result", result);
+            });
+        };
+
+        return {
+            insertLibraryPiece: _insertLibraryPiece,
+            removeLibraryPiece: _removeLibraryPiece,
+            removeLibraryPieceById: _removeLibraryPieceById,
+            removeAll: _removeAll,
+            findLibraryPieceBy_Id: _findLibraryPieceBy_Id,
+            findLibraryPieceBy_Name_Composer: _findLibraryPieceBy_Name_Composer,
+            cursorOnLibraryPieces: _cursorOnLibraryPieces
+        }
     }
 })()

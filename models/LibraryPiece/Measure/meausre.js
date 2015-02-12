@@ -5,9 +5,10 @@ Measure = function() {
 
 Measure.fromJSONValue = function(value) {
     var measure = new Measure();
-    var beats = EJSON.fromJSONValue(value.beats);
+    var beats = value.beats.map(function(each) {
+        return Beat.fromJSONValue(each);
+    });
     measure.addBeats(beats);
-
     return measure;
 };
 
@@ -17,7 +18,9 @@ Measure.prototype = {
     },
     toJSONValue: function() {
         return {
-            beats: EJSON.toJSONValue(this.beats)
+            beats: this.beats.map(function(each) {
+                return each.toJSONValue();
+            })
         };
     },
     get piece() {
@@ -61,5 +64,3 @@ Measure.prototype = {
         return result;
     }
 };
-
-EJSON.addType(className, Measure.fromJSONValue);

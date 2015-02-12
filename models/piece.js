@@ -42,6 +42,3 @@ _.extend(Piece.prototype, {
         return result;
     }*/
 });
-
-EJSON.addType(className, Piece.fromJSONValue);
-

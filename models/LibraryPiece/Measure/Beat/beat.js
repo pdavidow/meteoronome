@@ -132,5 +132,3 @@ Beat.prototype = {
         this.displayLocationDescription;
     }
 };
-
-EJSON.addType(className, Beat.fromJSONValue);

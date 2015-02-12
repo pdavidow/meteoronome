@@ -175,5 +175,3 @@ MetronomeSetting.prototype = {
         return this._reactiveDict = this._reactiveDict || new ReactiveDict();
     }
 };
-
-EJSON.addType(className, MetronomeSetting.fromJSONValue);

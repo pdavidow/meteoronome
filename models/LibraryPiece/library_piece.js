@@ -18,10 +18,12 @@ LibraryPiece.fromJSONValue = function(value) {
         value.composer,
         value.catalogReference
     );
-    var measures = EJSON.fromJSONValue(value.measures);
+    var measures = value.measures.map(function(each) {
+        return Measure.fromJSONValue(each);
+    });
     libraryPiece.addMeasures(measures);
-    libraryPiece.metronomeSetting = EJSON.fromJSONValue(value.metronomeSetting);
-
+    //libraryPiece.publicationDate = Date.parse(value.publicationDateString);  todo needs work
+    libraryPiece.metronomeSetting = MetronomeSetting.fromJSONValue(value.metronomeSetting);
     return libraryPiece;
 };
 
@@ -29,13 +31,24 @@ LibraryPiece.prototype = {
     typeName: function() {
         return className;
     },
+    /*
+    clone: function() { // todo: temp
+        return _.clone(this);
+    },
+    equals: function(other) { //todo: temp
+        return _.isEqual(this, other);
+    },
+    */
     toJSONValue: function() {
         return {
             name: this.name,
             composer: this.composer,
             catalogReference: this.catalogReference,
-            measures: EJSON.toJSONValue(this.measures),
-            metronomeSetting: EJSON.toJSONValue(this.metronomeSetting)
+            measures: this.measures.map(function(each) {
+                return each.toJSONValue();
+            }),
+            //publicationDateString: this.publicationDate.toISOString(),
+            metronomeSetting: (this.metronomeSetting.toJSONValue())
         };
     },
     get measures() {
@@ -62,6 +75,12 @@ LibraryPiece.prototype = {
         setting.piece = this;
         this._metronomeSetting = setting;
     },
+    get publicationDate() {
+        return this._publicationDate = this._publicationDate || new Date();
+    },
+    set publicationDate(date) {
+        this._publicationDate = date;
+    },
     get beats() {
         return _.flatten(this.measures.map(function(each) {
             return each.beats;
@@ -83,13 +102,6 @@ LibraryPiece.prototype = {
             each.loadDisplayCaches();
         });
     },
-    get holderId() {
-        return this._holderId;
-    },
-    set holderId(id) {
-        check(id, String);
-        this._holderId = id;
-    },
     displayString: function () {
         var value, result;
         result = this.composer + ', ' + this.name;
@@ -101,5 +113,3 @@ LibraryPiece.prototype = {
         return result;
     }
 };
-
-EJSON.addType(className, LibraryPiece.fromJSONValue);

@@ -14,5 +14,14 @@ Librarian = {
         this.specSubtypes.forEach(function(each) {
             LibraryPieceManager.insertLibraryPiece(each.factoryPiece);
         });
+    },
+    get libraryContents() {
+        return (LibraryPieceManager.cursorOnLibraryPieces().fetch());
+    },
+    get isEmptyLibrary() {
+        return (this.libraryContents.length == 0);
+    },
+    ensureLibraryLoaded: function() {
+        if (this.isEmptyLibrary) this._repopulateDatabase();
     }
 }

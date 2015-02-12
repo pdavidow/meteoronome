@@ -12,7 +12,7 @@ Object.defineProperties(LibraryPieceSpec_Sample2, {
 
         measure = new Measure();
         measure.addBeats([
-            new Beat(2,3),
+            new Beat(9,3),
             new Beat(11,3)
         ]);
         measures.push(measure);
@@ -24,8 +24,8 @@ Object.defineProperties(LibraryPieceSpec_Sample2, {
 _.extend(LibraryPieceSpec_Sample2, {
     applyMetronomeSetting: function(setting) {
         check(setting, MetronomeSetting);
-        setting.classicTicksPerMinute = 30;
+        setting.classicTicksPerMinute = 120;
         setting.classicTicksPerBeat = 1;
-        setting.isLoop = false;
+        setting.isLoop = true;
     }
 });
