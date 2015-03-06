@@ -19,16 +19,11 @@
 
     <br/><br/>
 
-    <button id="start" disabled={{isStartButtonDisabled}}>Start</button>
-    <button id="stop" disabled={{isStopButtonDisabled}}>Stop</button>
+
 
     <br/><br/>
 
-    {{#if isPieceSelected}}
-        {{> status}}
-        <br/><br/>
-        {{> setting}}
-    {{/if}}
+
 
 </template>
 

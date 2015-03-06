@@ -13,18 +13,16 @@ LibraryPiece = function (name, composer, catalogReference) {
 };
 
 LibraryPiece.fromJSONValue = function(value) {
-    var libraryPiece =  new LibraryPiece(
-        value.name,
-        value.composer,
-        value.catalogReference
-    );
-    var measures = value.measures.map(function(each) {
-        return Measure.fromJSONValue(each);
-    });
-    libraryPiece.addMeasures(measures);
-    //libraryPiece.publicationDate = Date.parse(value.publicationDateString);  todo needs work
-    libraryPiece.metronomeSetting = MetronomeSetting.fromJSONValue(value.metronomeSetting);
-    return libraryPiece;
+        var libraryPiece = this.instanciateFromJSONValue(value);
+        libraryPiece.reifyFromJSONValue(value);
+        return libraryPiece;
+};
+LibraryPiece.instanciateFromJSONValue = function(value) {
+        return new this(
+            value.name,
+            value.composer,
+            value.catalogReference
+        );
 };
 
 LibraryPiece.prototype = {
@@ -51,6 +49,14 @@ LibraryPiece.prototype = {
             metronomeSetting: (this.metronomeSetting.toJSONValue())
         };
     },
+    reifyFromJSONValue: function(value) {
+        var measures = value.measures.map(function (each) {
+            return Measure.fromJSONValue(each);
+        });
+        this.addMeasures(measures);
+        //libraryPiece.publicationDate = Date.parse(value.publicationDateString);  todo needs work
+        this.metronomeSetting = MetronomeSetting.fromJSONValue(value.metronomeSetting);
+    },
     get measures() {
         return this._measures = this._measures || [];
     },
@@ -75,12 +81,14 @@ LibraryPiece.prototype = {
         setting.piece = this;
         this._metronomeSetting = setting;
     },
+    /*
     get publicationDate() {
         return this._publicationDate = this._publicationDate || new Date();
     },
     set publicationDate(date) {
         this._publicationDate = date;
     },
+    */
     get beats() {
         return _.flatten(this.measures.map(function(each) {
             return each.beats;
@@ -101,6 +109,15 @@ LibraryPiece.prototype = {
         this.beats.forEach(function(each) {
             each.loadDisplayCaches();
         });
+    },
+    asPieceForOwnerId: function(id) {
+        check(id, String);
+        return new Piece(this.name, this.composer, this.catalogReference, id);
+    },
+    asPieceForCurrentUser: function() {
+        var id = Meteor.userId();
+        check(id, String);
+        return this.asPieceForOwnerId(id);
     },
     displayString: function () {
         var value, result;

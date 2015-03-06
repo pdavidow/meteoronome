@@ -9,8 +9,12 @@
 standard-app-packages
 underscore
 #audit-argument-checks
-#accounts-ui
-#accounts-password
+
 
 reactive-dict
 reactive-var
+
+mizzao:accounts-testing
+accounts-ui
+accounts-password
+

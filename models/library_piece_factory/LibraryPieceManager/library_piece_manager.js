@@ -8,8 +8,8 @@ LibraryPieceManager = (function() {
     Meteor.methods({
         insertLibraryPieceAsJSON: function(object) {
             check(object, Match.ObjectIncluding({name: String, composer: String}));
-            var dup = _findLibraryPieceBy_Name_Composer(object.name, object.composer);
-            if (dup) throw new Meteor.Error("insertLibraryPieceAsJSON failed", "duplicate found");
+            var duplicate = _findLibraryPieceBy_Name_Composer(object.name, object.composer);
+            if (duplicate) throw new Meteor.Error("insertLibraryPieceAsJSON failed", "duplicate found");
             console.log("insertLibraryPieceAsJSON isSimulation?", this.isSimulation);
             return LibraryPieces.insert(object);
         },
@@ -69,20 +69,22 @@ LibraryPieceManager = (function() {
                 if (result) Session.set("removeAllLibraryPieces_result", result);
             });
         };
+    };
 
-        serverAPI = {
-            findLibraryPieceBy_Id: _findLibraryPieceBy_Id,
-            findLibraryPieceBy_Name_Composer: _findLibraryPieceBy_Name_Composer,
-            cursorOnLibraryPieces: _cursorOnLibraryPieces
-        };
+    serverAPI = {
+        findLibraryPieceBy_Id: _findLibraryPieceBy_Id,
+        findLibraryPieceBy_Name_Composer: _findLibraryPieceBy_Name_Composer,
+        cursorOnLibraryPieces: _cursorOnLibraryPieces
+    };
+    if (Meteor.isServer) return serverAPI;
+
+    if (Meteor.isClient) {
         clientAPI = _.extend(serverAPI, {
             insertLibraryPiece: _insertLibraryPiece,
             removeLibraryPiece: _removeLibraryPiece,
             removeLibraryPieceById: _removeLibraryPieceById,
             removeAll: _removeAll
         });
-
-        if (Meteor.isClient) return clientAPI;
-        if (Meteor.isServer) return serverAPI;
-    }
+        return clientAPI;
+    };
 })()

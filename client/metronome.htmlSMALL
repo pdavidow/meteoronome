@@ -1,0 +1,37 @@
+<head>
+    <title>Metronome</title>
+</head>
+
+<body>
+    {{> loginButtons}}
+    <br/><br/>
+    {{> main}}
+</body>
+
+<template name="main">
+    {{> libraryPieces}}
+
+    {{#if currentUser}}
+        {{> pieces}}
+    {{/if}}
+</template>
+
+<template name="libraryPieces">
+    Library <button id="import">Import</button>
+    <br/>
+    <select id="libraryPieceList">
+        {{#each cursorOnLibraryPieces}}
+            <option value={{_id}}>{{displayString}}</option>
+        {{/each}}
+    </select>
+</template>
+
+<template name="pieces">
+    My Pieces
+    <br/>
+    <select id="pieceList">
+        {{#each cursorOnPiecesForCurrentUser}}
+            <option value={{_id}}>{{displayString}}</option>
+        {{/each}}
+    </select>
+</template>

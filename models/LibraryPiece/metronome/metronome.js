@@ -149,7 +149,7 @@ Metronome.prototype = {
         this.reactiveDict.set("loopCount", null);
     },
     get currentBeatDep() {
-        return this._currentBeatDep = this._currentBeatDep || new Deps.Dependency;
+        return this._currentBeatDep = this._currentBeatDep || new Tracker.Dependency;
     },
     reset: function() {
         this.resetTimeAtStart();
