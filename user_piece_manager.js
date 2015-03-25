@@ -1,4 +1,50 @@
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+Temp_Meteor = (function() {  //todo workaround for lack of package
+    _userId = function() {
+        return Temp_VirtualUser.userId();
+    };
+    _user = function() {
+        return Temp_VirtualUser;
+    };
+
+    return {
+        userId: _userId,
+        user: _user
+    }
+})();
+
+Temp_VirtualUser = (function() {  //todo workaround for lack of user package
+    var _currentPieceId = null;
+
+    _userId = function() {
+        return 'vt45t5u8otrhjio';
+    };
+    _getCurrentPieceId = function() {
+        return _currentPieceId;
+    };
+    _setCurrentPieceId = function(id) {
+        check(id, Match.OneOf(String, null));
+        _currentPieceId = id;
+    };
+
+    return {
+        userId: _userId,
+        getCurrentPieceId: _getCurrentPieceId,
+        setCurrentPieceId: _setCurrentPieceId
+    }
+})();
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
 UserPieceManager = (function() {
+    var _currentPiece = null;
+    var _currentPieceDep = new Tracker.Dependency;
+
     Meteor.methods({
         updateCurrentPieceId: function(id) {
             var currentUserId;
@@ -11,29 +57,45 @@ UserPieceManager = (function() {
     });
 
     _getCurrentPieceIdFromUser = function() {
+        return Temp_VirtualUser.getCurrentPieceId(); // todo temp
+
         var currentUser, id;
-        currentUser = Meteor.user();
+        currentUser = Temp_Meteor.user(); // Meteor.user(); todo
         if (!currentUser) return null;
         id = currentUser.currentPieceId;
         return id ? id : null;
     };
     _updateCurrentPieceId = function(id) {
+        Temp_VirtualUser.setCurrentPieceId(id); // todo temp
+        _setCurrentPieceFromId(id);             // todo temp
+        return;                                 // todo temp
+
         var callback = function (error, result) {
-            if (result) _broadcastCurrentPieceId(id);
+            if (result) _setCurrentPieceFromId(id);
         };
         Meteor.call("updateCurrentPieceId", id, callback);
     };
-    _broadcastCurrentPieceId = function(id) {
+    _setCurrentPieceFromId = function(id) {
         check(id, Match.OneOf(String, null));
-        Session.set("currentPieceId", id);
+        _currentPiece = PieceManager.findPieceBy_Id(id);
+        _currentPieceDep.changed();
     };
-    _broadcastCurrentPieceIdFromUser = function() {
-        _broadcastCurrentPieceId(_getCurrentPieceIdFromUser());
+    _setCurrentPieceFromUser = function() {
+        _setCurrentPieceFromId(_getCurrentPieceIdFromUser());
+    };
+    _getCurrentPiece = function() {
+        _currentPieceDep.depend();
+        return _currentPiece;
+    };
+    _getCurrentPieceDep = function() {
+        return _currentPieceDep;
     };
 
     return {
         getCurrentPieceIdFromUser: _getCurrentPieceIdFromUser,
         updateCurrentPieceId: _updateCurrentPieceId,
-        broadcastCurrentPieceIdFromUser: _broadcastCurrentPieceIdFromUser
+        setCurrentPieceFromUser: _setCurrentPieceFromUser,
+        getCurrentPiece: _getCurrentPiece,
+        getCurrentPieceDep: _getCurrentPieceDep // todo used?
     }
 })()

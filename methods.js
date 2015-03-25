@@ -1,10 +1,12 @@
 Meteor.methods({
     pieceInsert: function(piece) {
         console.log('stub? pieceInsert', this.isSimulation);
-        check(Meteor.userId(), String);
+        check(Temp_Meteor.userId(), String);
+        // check(Meteor.userId(), String); todo
         check(piece, Piece);
 
-        var redundancy = PieceCollection.findOne({name: piece.name, composer: piece.composer});
+        var redundancy = PieceCollection.findOne({name:piece.name, composer:piece.composer, ownerId:Temp_Meteor.userId()});
+        //var redundancy = PieceCollection.findOne({name:piece.name, composer:piece.composer, ownerId:Meteor.userId()}); // todo
         if (redundancy) {
             return {
                 isRedundant: true,

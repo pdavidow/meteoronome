@@ -1,0 +1,19 @@
+<template name="setting">
+    {{#with metronomeSetting}}
+        Classic-ticks per minute <input type="number" min="1" step="1" id="classicTicksPerMinute" value={{classicTicksPerMinute}} disabled={{isMetronomeStarted}} />
+        <br/>
+        Classic-ticks per beat <input type="number" min="1" step="1" id="classicTicksPerBeat" value={{classicTicksPerBeat}} disabled={{isMetronomeStarted}} />
+        <br/>
+        Loop? <input class="check" id="isLoop" type="checkbox" checked={{isLoop}} disabled={{isMetronomeStarted}}>
+        <br/>
+        Use entire piece? <input class="check" id="isUseEntirePiece" type="checkbox" checked={{isUseEntirePiece}} disabled={{isMetronomeStarted}}>
+        <br/>
+        Begin beat index <input type="number" min="1" step="1" id="beginBeatIndex" value={{beginBeatIndex_getForUI}} disabled={{isDisableIndexField}} />
+        <br/>
+        Begin measure index <input type="number" min="1" max={{measureAmount}} step="1" id="beginMeasureIndex" value={{beginMeasureIndex_getForUI}} disabled={{isDisableIndexField}} />
+        <br/>
+        End beat index <input type="number" min="1" step="1" id="endBeatIndex" value={{endBeatIndex_getForUI}} disabled={{isDisableIndexField}} />
+        <br/>
+        End measure index <input type="number" min="1" max={{measureAmount}} step="1" id="endMeasureIndex" value={{endMeasureIndex_getForUI}} disabled={{isDisableIndexField}} />
+    {{/with}}
+</template>

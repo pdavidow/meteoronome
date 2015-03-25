@@ -111,11 +111,14 @@ LibraryPiece.prototype = {
         });
     },
     asPieceForOwnerId: function(id) {
+        var piece;
         check(id, String);
-        return new Piece(this.name, this.composer, this.catalogReference, id);
+        piece = new Piece(this.name, this.composer, this.catalogReference, id);
+        piece.reifyFromJSONValue(this.toJSONValue());
+        return piece;
     },
     asPieceForCurrentUser: function() {
-        var id = Meteor.userId();
+        var id = Temp_Meteor.userId(); // Meteor.userId(); todo
         check(id, String);
         return this.asPieceForOwnerId(id);
     },

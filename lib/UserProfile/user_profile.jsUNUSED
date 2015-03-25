@@ -1,9 +1,0 @@
-Meteor.methods({
-    broadcastCurrentPieceIdFromUser: function(id) {
-        console.log("broadcastCurrentPieceIdFromUser isSimulation?", this.isSimulation);
-        check(id, String);
-        var currentUserId = Meteor.userId();
-        if (!currentUserId) return null;
-        return Meteor.users.update(currentUserId, {$set: {'currentPieceId': id}});
-    }
-});

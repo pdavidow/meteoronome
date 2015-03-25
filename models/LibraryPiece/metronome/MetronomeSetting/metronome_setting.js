@@ -108,6 +108,34 @@ MetronomeSetting.prototype = {
         check(value, Matcher.nonNegativeNumber);
         this._endBeatIndex = value;
     },
+    beginBeatIndex_getForUI: function() {
+        return IndexAdaptor.shiftUp(this.beginBeatIndex);
+    },
+    endBeatIndex_getForUI: function() {
+        return IndexAdaptor.shiftUp(this.endBeatIndex);
+    },
+    beginMeasureIndex_getForUI: function() {
+        return IndexAdaptor.shiftUp(this.beginMeasureIndex);
+    },
+    endMeasureIndex_getForUI: function() {
+        return IndexAdaptor.shiftUp(this.endMeasureIndex);
+    },
+    beginBeatIndex_setFromUI: function(value) {
+        check(value, Matcher.positiveInteger);
+        this.beginBeatIndex = IndexAdaptor.shiftDown(value);
+    },
+    endBeatIndex_setFromUI: function(value) {
+        check(value, Matcher.positiveInteger);
+        this.endBeatIndex = IndexAdaptor.shiftDown(value);
+    },
+    beginMeasureIndex_setFromUI: function(value) {
+        check(value, Matcher.positiveInteger);
+        this.beginMeasureIndex = IndexAdaptor.shiftDown(value);
+    },
+    endMeasureIndex_setFromUI: function(value) {
+        check(value, Matcher.positiveInteger);
+        this.endMeasureIndex = IndexAdaptor.shiftDown(value);
+    },
     get beatsOfInterest() {
         var that = this;
         return this.piece.beats.filter(function(each) {

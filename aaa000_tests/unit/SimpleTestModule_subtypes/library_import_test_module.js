@@ -2,14 +2,15 @@ LibraryImportTestModule = Object.create(AbstractSimpleTestModule);
 
 _.extend(LibraryImportTestModule, {
     test_0: function () {
-        Meteor.insecureUserLogin("user1"); // using https://atmospherejs.com/mizzao/accounts-testing
+        //Meteor.insecureUserLogin("user1"); // using https://atmospherejs.com/mizzao/accounts-testing  //todo
         //Accounts.createUser({username: "username1", password : "password1"}, function(e) {console.log(e);});
 
-        var userId1 = Meteor.userId();
+        var userId1 = Temp_Meteor.userId();  // Meteor.userId(); todo
         var piece1 = LibraryPieceSpec_Sample1.factoryPiece.asPieceForOwnerId(userId1);
         var piece2 = LibraryPieceSpec_Sample2.factoryPiece.asPieceForCurrentUser();
         var cursor = PieceManager.cursorOnPiecesForCurrentUser();
 
+        console.log("ASSERT: LibraryImportTestModule.test_0.aa", piece1.measures.length == LibraryPieceSpec_Sample1.factoryPiece.measures.length);
         console.log("ASSERT: LibraryImportTestModule.test_0.a", cursor.fetch().length == 0);
 
         PieceManager.insertPiece(piece1);
@@ -69,7 +70,7 @@ _.extend(LibraryImportTestModule, {
 
         var function7 = function() {
             var pieces = cursor.fetch();
-            console.log("ASSERT: LibraryImportTestModule.test_0.q", pieces.length == 2);
+            console.log("ASSERT: LibraryImportTestModule.test_0.whitelist_nativ", pieces.length == 2);
             console.log("ASSERT: LibraryImportTestModule.test_0.r", Session.get("insertPiece_error") == null);
             var id = Session.get("insertPiece_result");
             var found = _.find(pieces, function(each) {return each._id == id});
