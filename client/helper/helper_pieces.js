@@ -4,7 +4,6 @@ Template.pieces.rendered  = function() {
 
 Template.pieces.helpers({
     isDeletePieceButtonDisabled: function() {
-        debugger;
         return Helper.currentPiece() ? false : Helper.isMetronomeStarted();
     },
     cursorOnPiecesForCurrentUser: function() {
