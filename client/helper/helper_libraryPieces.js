@@ -10,8 +10,7 @@ Template.libraryPieces.helpers({
         return false;
     },
     isImportButtonDisabled: function() {
-        // if (Meteor.user()) return false; // todo temp
-        if (Temp_Meteor.user()) return false;
+        if (Meteor.user()) return false;
         return true;
     },
     cursorOnLibraryPieces: function() {

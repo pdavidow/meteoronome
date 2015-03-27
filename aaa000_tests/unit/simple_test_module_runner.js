@@ -4,8 +4,7 @@ SimpleTestModuleRunner = (function() {
             TickTestModule: TickTestModule,
             MetronomeTestModule: MetronomeTestModule,
             MetronomeSettingTestModule: MetronomeSettingTestModule,
-            LibraryImportTestModule: LibraryImportTestModule/*,
-            JSONTestModule: JSONTestModule*/
+            LibraryImportTestModule: LibraryImportTestModule
         };
     };
     var _run = function() {

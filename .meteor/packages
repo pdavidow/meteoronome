@@ -3,18 +3,17 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-autopublish
-insecure
+#autopublish
+#insecure
 
 standard-app-packages
 underscore
-#audit-argument-checks
-
+audit-argument-checks
 
 reactive-dict
 reactive-var
 
-#mizzao:accounts-testing
+mizzao:accounts-testing
 accounts-ui
-#accounts-password
+accounts-password
 

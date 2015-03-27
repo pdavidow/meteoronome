@@ -5,7 +5,7 @@ Meteor.startup(function () {
         Audio.initializeSound_onFinishedLoading(function () {
             console.log("audio finished loading");
         });
-        //if (isRunTests) {SimpleTestModuleRunner.run()};
+        if (isRunTests) {SimpleTestModuleRunner.run()};
         //Librarian.ensureLibraryLoaded();
         Librarian.reset();
     }

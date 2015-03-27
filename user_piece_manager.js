@@ -1,46 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-Temp_Meteor = (function() {  //todo workaround for lack of package
-    _userId = function() {
-        return Temp_VirtualUser.userId();
-    };
-    _user = function() {
-        return Temp_VirtualUser;
-    };
-
-    return {
-        userId: _userId,
-        user: _user
-    }
-})();
-
-Temp_VirtualUser = (function() {  //todo workaround for lack of user package
-    var _currentPieceId = null;
-
-    _userId = function() {
-        return 'vt45t5u8otrhjio';
-    };
-    _getCurrentPieceId = function() {
-        return _currentPieceId;
-    };
-    _setCurrentPieceId = function(id) {
-        check(id, Match.OneOf(String, null));
-        _currentPieceId = id;
-    };
-
-    return {
-        userId: _userId,
-        getCurrentPieceId: _getCurrentPieceId,
-        setCurrentPieceId: _setCurrentPieceId
-    }
-})();
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-
 UserPieceManager = (function() {
     var _currentPiece = null;
     var _currentPieceDep = new Tracker.Dependency;
@@ -57,19 +14,13 @@ UserPieceManager = (function() {
     });
 
     _getCurrentPieceIdFromUser = function() {
-        return Temp_VirtualUser.getCurrentPieceId(); // todo temp
-
         var currentUser, id;
-        currentUser = Temp_Meteor.user(); // Meteor.user(); todo
+        currentUser = Meteor.user();
         if (!currentUser) return null;
         id = currentUser.currentPieceId;
         return id ? id : null;
     };
     _updateCurrentPieceId = function(id) {
-        Temp_VirtualUser.setCurrentPieceId(id); // todo temp
-        _setCurrentPieceFromId(id);             // todo temp
-        return;                                 // todo temp
-
         var callback = function (error, result) {
             if (result) _setCurrentPieceFromId(id);
         };

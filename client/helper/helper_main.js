@@ -3,9 +3,6 @@ Template.main.rendered = function() {
 };
 
 Template.main.helpers({
-    currentUserTEMPPPPPPPPPPPPPPPPPPPPPPP: function() { // todo
-        return Temp_VirtualUser;
-    },
     isPieceSelected: function() {
         return !(_.isNull(Helper.currentPiece()));
     },

@@ -118,7 +118,7 @@ LibraryPiece.prototype = {
         return piece;
     },
     asPieceForCurrentUser: function() {
-        var id = Temp_Meteor.userId(); // Meteor.userId(); todo
+        var id = Meteor.userId();
         check(id, String);
         return this.asPieceForOwnerId(id);
     },

@@ -44,7 +44,7 @@ PieceManager = (function() {
         return Pieces.find({ownerId: id}, {sort: [["composer", "asc"], ["name", "asc"], ["catalogReference", "asc"], ["publicationDate", "asc"]]});
     };
     _cursorOnPiecesForCurrentUser = function() {
-        var id = Temp_Meteor.userId(); // Meteor.userId(); todo
+        var id = Meteor.userId();
         check(id, String);
         return _cursorOnPiecesForOwnerId(id);
     };
@@ -85,7 +85,7 @@ PieceManager = (function() {
             });
         };
         _removeAllForCurrentUser = function() {
-            var id = Temp_Meteor.userId(); // Meteor.userId(); todo
+            var id = Meteor.userId();
             check(id, String);
             _removeAllForOwnerId(id);
         };
