@@ -4,12 +4,8 @@ Template.pieces.rendered  = function() {
 
 Template.pieces.helpers({
     isDeletePieceButtonDisabled: function() {
-        return Helper.currentPiece() ? false : true;
-    },
-    isPieceListDisabled: function() { 
-        var piece = Helper.currentPiece();
-        if (piece) return piece.metronome.isStarted;
-        return false;
+        debugger;
+        return Helper.currentPiece() ? false : Helper.isMetronomeStarted();
     },
     cursorOnPiecesForCurrentUser: function() {
         return PieceManager.cursorOnPiecesForCurrentUser();

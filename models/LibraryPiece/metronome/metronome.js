@@ -111,6 +111,14 @@ Metronome.prototype = {
     setCurrentBeatToFirst: function() {
         this.currentBeat = _.first(this.beats);
     },
+    isStartedQQQQQQQQQQ: function() {
+        var value = this.reactiveDict.get("isStarted");
+        if (_.isNull(value) || _.isUndefined(value)) {
+            this.reactiveDict.set("isStarted", false);
+            return this.reactiveDict.get("isStarted");
+        }
+        return value;
+    },
     get isStarted() {
         var value = this.reactiveDict.get("isStarted");
         if (_.isNull(value) || _.isUndefined(value)) {

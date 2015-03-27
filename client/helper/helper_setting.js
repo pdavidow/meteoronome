@@ -3,7 +3,6 @@ Template.setting.helpers({
         return Helper.currentPiece().measures.length;
     },
     isDisableIndexField: function() {
-        return false; // todo
         return Helper.isMetronomeStarted() || Helper.isUseEntirePiece();
     }
 });

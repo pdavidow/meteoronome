@@ -6,7 +6,7 @@ UserPieceManager = (function() {
         updateCurrentPieceId: function(id) {
             var currentUserId;
             console.log("updateCurrentPieceId isSimulation?", this.isSimulation);
-            check(id, String);
+            check(id, Match.OneOf(String, null));
             currentUserId = Meteor.userId();
             if (!currentUserId) return null;
             return Meteor.users.update(currentUserId, {$set: {'currentPieceId': id}});

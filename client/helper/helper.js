@@ -16,21 +16,20 @@ Helper = (function() {
         return UserPieceManager.getCurrentPiece();
     };
     _currentPieceId = function() {
-        var piece = _currentPiece();
-        if (piece) return piece._id;
-        return null;
+        return UserPieceManager.getCurrentPieceIdFromUser();
     },
     _metronomeSetting = function() {
         return _currentPiece().metronomeSetting;
     };
     _isMetronomeStarted = function() {
         var piece = _currentPiece();
-        if (piece) return piece.metronome.isStarted;  //todo https://github.com/meteor/meteor/issues/3901
+        //if (piece) return piece.metronome.isStarted;  // https://github.com/meteor/meteor/issues/3901
+        if (piece) return piece.metronome.isStartedQQQQQQQQQQ();
         return false;
     };
-    _setCurrentPieceToFirst = function() {
+    _setCurrentPieceToFirstOrNull = function() {
         var firstPiece = _.first(PieceManager.cursorOnPiecesForCurrentUser().fetch());
-        var id = firstPiece ? firstPiece._id : null;
+        var id = (firstPiece ? firstPiece._id : null);
         UserPieceManager.updateCurrentPieceId(id);
     };
 
@@ -42,12 +41,13 @@ Helper = (function() {
         currentPieceId: _currentPieceId,
         metronomeSetting: _metronomeSetting,
         isMetronomeStarted: _isMetronomeStarted,
-        setCurrentPieceToFirst: _setCurrentPieceToFirst
+        setCurrentPieceToFirst: _setCurrentPieceToFirstOrNull
     }
 })();
 
 Template.registerHelper("isLoop", Helper.isLoop);
 Template.registerHelper("isLibraryPieceSelected", Helper.isLibraryPieceSelected);
 Template.registerHelper("isUseEntirePiece", Helper.isUseEntirePiece);
+Template.registerHelper("isMetronomeStarted", Helper.isMetronomeStarted);
 Template.registerHelper("metronomeSetting", Helper.metronomeSetting);
 Template.registerHelper("currentPieceId", Helper.currentPieceId);

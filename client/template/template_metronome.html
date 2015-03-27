@@ -10,26 +10,19 @@
 
 <template name="main">
     {{> libraryPieces}}
-
     <br/><br/>
-
     {{#if currentUser}}
         {{> pieces}}
-    {{/if}}
-
-    <br/><br/>
-
-    <button id="start" disabled={{isStartButtonDisabled}}>Start</button>
-    <button id="stop" disabled={{isStopButtonDisabled}}>Stop</button>
-
-    <br/><br/>
-
-    {{#if isPieceSelected}}
-        {{> status}}
         <br/><br/>
-        {{> setting}}
+        {{#if isPieceSelected}}
+            <button id="start" disabled={{isStartButtonDisabled}}>Start</button>
+            <button id="stop" disabled={{isStopButtonDisabled}}>Stop</button>
+            <br/><br/>
+            {{> status}}
+            <br/><br/>
+            {{> setting}}
+        {{/if}}
     {{/if}}
-
 </template>
 
 <template name="libraryPieces">
@@ -45,7 +38,7 @@
 <template name="pieces">
     My Pieces <button id="deleteCurrentPiece" disabled={{isDeletePieceButtonDisabled}}>Delete</button>
     <br/>
-    <select id="pieceList" disabled={{isPieceListDisabled}}>
+    <select id="pieceList" disabled={{isMetronomeStarted}}>
         {{#each cursorOnPiecesForCurrentUser}}
             <option value={{_id}}>{{displayString}}</option>
         {{/each}}
